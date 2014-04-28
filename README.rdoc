@@ -1,28 +1,16 @@
 == README
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+This is my first Ruby on Rails application.  It is a social networking website.
 
-Things you may want to cover:
+This is being created using:
 
-* Ruby version
+* Ruby 2.1.1
 
-* System dependencies
+* Rails 4.0.10
 
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+* Using Ubuntu 12.04 installed via crouton on a chromebook
 
 
-Please feel free to use a different markup language if you do not plan to run
+Initial launching:
+Created new Rails application and added status updates.
 <tt>rake doc:app</tt>.
