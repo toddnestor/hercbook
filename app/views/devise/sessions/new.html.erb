@@ -1,17 +1,41 @@
-<h2>Sign in</h2>
 
-<%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
-  <div><%= f.label :email %><br />
-  <%= f.email_field :email, autofocus: true %></div>
+<div class="row">
+    <div class="col-md-4">
 
-  <div><%= f.label :password %><br />
-    <%= f.password_field :password, autocomplete: "off" %></div>
-
-  <% if devise_mapping.rememberable? -%>
-    <div><%= f.check_box :remember_me %> <%= f.label :remember_me %></div>
-  <% end -%>
-
-  <div><%= f.submit "Sign in" %></div>
+<%= simple_form_for(:user, :url => session_path(:user), html: {class: "well", role: "form"}) do |f| %>
+         <fieldset>
+            <legend>Log in</legend>
+            <%= f.input :email, wrapper_html: {class: "form-group"}, input_html: {class: "form-control", placeholder: "E-mail/Username"}, label: false %>
+            <%= f.input :password, wrapper_html:{class: "form-group"}, input_html: {class: "form-control", placeholder: "Password"}, label: false %>
+            <%= button_tag(type: 'submit', class: "btn btn-success") do %>
+               Log in
+            <% end %>
+         </fieldset>
+       <% end %>
+    </div>
+    <div class="col-md-4">
+        <h2>Join HercBook now!</h2>
+        <div>
+            Hercbook is the new social network where we don't track how many times you poke someone, or details other than the normal stuff in the database that makes the software work!
+        </div>
+     </div>
+     <div class="col-md-4">
+<%= simple_form_for(resource, as: resource_name, url: registration_path(resource_name), html: {class: "well"}) do |f| %>
+  <fieldset>
+    <legend>Not a member yet? Sign up!</legend>
+      <%= devise_error_messages! %>
+      <div><%= f.input :first_name, autofocus: true %></div>
+      <div><%= f.input :last_name %></div>
+      <div><%= f.input :profile_name %></div>
+      <div><%= f.input :email %></div>
+      <div><%= f.input :password, autocomplete: "off" %></div>
+      <div><%= f.input :password_confirmation, autocomplete: "off" %></div>
+      <div>
+          <%= button_tag(type: 'submit', class: "btn btn-success") do %>
+              Register  
+          <% end %>
+      </div>
+  </fieldset>
 <% end %>
-
-<%= render "devise/shared/links" %>
+     </div>
+</div>

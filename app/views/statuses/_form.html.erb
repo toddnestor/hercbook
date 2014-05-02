@@ -1,4 +1,6 @@
-<%= simple_form_for(@status, html: {class: "form-horizontal", role: "form"}) do |f| %>
+
+
+<%= simple_form_for(@status, html: {class: "well", role: "form"}) do |f| %>
   <% if @status.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(@status.errors.count, "error") %> prohibited this status from being saved:</h2>
@@ -10,9 +12,15 @@
       </ul>
     </div>
   <% end %>
+  <fieldset>
+    <legend>New Status</legend>
   <%= f.input :user_id, :as => :hidden, :input_html => {:value => current_user.id} %>
-  <%= f.input :content %><br>
+  <%= f.input :content,label: false, input_html:{class: "form-control", rows: "10"}, wrapper_html:{class: "form-group"} %><br>
   <div class="form-actions">
-    <%= f.button :submit %>
+    <%= button_tag(type: 'submit', class: "btn btn-success") do %>
+        Post
+    <% end %>
   </div>
+  </fieldset>
 <% end %>
+

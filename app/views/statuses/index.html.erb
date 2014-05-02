@@ -1,5 +1,11 @@
-<div class="page-header">
-    <h1>All of the Statuses</h1>
+<% if user_signed_in? %>
+<div class="col-md-2">
+text
+</div>
+<div class="col-md-8">
+
+<div class="page-header col-md-8" style="position: fixed; margin-top: -70px; padding-bottom: 0px;background: white;">
+    <h1>What's new with your friends?</h1>
 </div>
 
 <%= link_to "Post a New Status", new_status_path, class: "btn btn-danger" %>
@@ -17,4 +23,12 @@
         </div>
     </div>
 <% end %>
-
+<% else %>
+    <div>
+        You aren't signed in.
+    </div>
+<% end %>
+</div>
+<div class="col-md-2">
+more text
+</div>
