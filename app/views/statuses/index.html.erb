@@ -4,7 +4,7 @@ text
 </div>
 <div class="col-md-8">
 
-<div class="page-header col-md-8" style="position: fixed; margin-top: -70px; padding-bottom: 0px;background: white;">
+<div>
     <h1>What's new with your friends?</h1>
 </div>
 
@@ -18,7 +18,7 @@ text
             <%= link_to time_ago_in_words(status.created_at) + " ago", status %>
             <span class="admin">
                 | <%= link_to "Edit", edit_status_path(status) %> |
-                <%= link_to "Delete", status, method: :delete, data: { confirm: "Are you sure you want to delete this status for " + "name" + "?" } %>
+                <%= link_to "Delete", status, method: :delete, data: { confirm: "Are you sure you want to delete this status for " + status.user.full_name + "?" } %>
             </span>
         </div>
     </div>
