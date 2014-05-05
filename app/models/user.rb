@@ -4,7 +4,7 @@ class User < ActiveRecord::Base
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable
 
-    attr_accessor :login
+    has_many :statuses
 
     validates :first_name, presence: true
 
@@ -17,7 +17,7 @@ class User < ActiveRecord::Base
                                  message: "Must not contain any special characters besides underscore or dash."
                                  }
 
-    has_many :statuses
+
 
     def full_name
         first_name + " " + last_name
