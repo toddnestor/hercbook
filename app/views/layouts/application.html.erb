@@ -5,6 +5,22 @@
   <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
   <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
   <%= csrf_meta_tags %>
+  <style>
+    div.navbar-inverse, div.navbar-inverse li a, .navbar-inverse .navbar-brand {
+       background-color:none;
+       background-image:linear-gradient(to bottom,#5cb85c 0,#419641 100%);
+       border: none;
+       color: #fff; 
+    }
+    .navbar-inverse .navbar-nav > li > a {
+        color: white;
+    }
+    .navbar-inverse .navbar-nav > .active > a, .navbar-inverse .navbar-nav > .active > a:hover, .navbar-inverse .navbar-nav > .active > a:focus {
+        background-color:#c12e2a;
+        background-image:linear-gradient(to bottom,#419641 0,#5cb85c 100%);
+        border: none;
+    }
+  </style>
 </head>
 <body>
     <div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
@@ -33,7 +49,7 @@
                       <%= simple_form_for(:user, :url => session_path(:user), html: {class: "navbar-form navbar-right", role: "form"}) do |f| %>
                         <%= f.input :email, wrapper_html: {class: "form-group"}, input_html: {class: "form-control", placeholder: "E-mail/Username"}, label: false %>
                         <%= f.input :password, wrapper_html:{class: "form-group"}, input_html: {class: "form-control", placeholder: "Password"}, label: false %>
-                        <%= button_tag(type: 'submit', class: "btn btn-success") do %>
+                        <%= button_tag(type: 'submit', class: "btn btn-primary") do %>
                             Log in
                         <% end %>
                       <% end %>
