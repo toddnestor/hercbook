@@ -11,31 +11,64 @@ class StatusesControllerTest < ActionController::TestCase
     assert_not_nil assigns(:statuses)
   end
 
-  test "should get new" do
+  test "should be redirected when not logged in" do
+    get :new
+    assert_response :redirect
+    assert_redirected_to new_user_session_path
+  end
+
+  test "should render the new page when logged in" do
+    sign_in users(:jason)
     get :new
     assert_response :success
   end
 
-  test "should create status" do
+  test "should be logged in to post a status" do
+    post :create, status: { content: "hello" }
+    assert_response :redirect
+    assert_redirected_to new_user_session_path
+  end
+
+  test "should create status when logged in" do
+    sign_in users(:jason)
     assert_difference('Status.count') do
-      post :create, status: { content: @status.content, name: @status.name }
-    end
-
-    assert_redirected_to status_path(assigns(:status))
+    post :create, status: { content: @status.content }
   end
 
-  test "should show status" do
-    get :show, id: @status
-    assert_response :success
-  end
+                                                                                                assert_redirected_to status_path(assigns(:status))
+                                                                                                  end
 
-  test "should get edit" do
-    get :edit, id: @status
-    assert_response :success
-  end
+                                                                                                    test "should create status for the current user when logged in" do
+                                                                                                        sign_in users(:jason)
 
-  test "should update status" do
-    patch :update, id: @status, status: { content: @status.content, name: @status.name }
+                                                                                                            assert_difference('Status.count') do
+                                                                                                                  post :create, status: { content: @status.content, user_id: users(:jim).id }
+                                                                                                                      end
+
+                                                                                                                          assert_redirected_to status_path(assigns(:status))
+                                                                                                                              assert_equal assigns(:status).user_id, users(:jason).id
+                                                                                                                                end
+
+                                                                                                                                  test "should show status" do
+                                                                                                                                      get :show, id: @status
+                                                                                                                                          assert_response :success
+                                                                                                                                            end
+
+                                                                                                                                              test "should get edit when logged in" do
+                                                                                                                                                  sign_in users(:jason)
+                                                                                                                                                      get :edit, id: @status
+                                                                                                                                                          assert_response :success
+                                                                                                                                                            end
+
+                                                                                                                                                              test "should redirect status update when not logged in" do
+                                                                                                                                                                put :update, id: @status, status: { content: @status.content }
+                                                                                                                                                                  assert_response :redirect
+                                                                                                                                                                    assert_redirected_to new_user_session_path
+                                                                                                                                                                    end
+
+                                                                                                                                                                      test "should update status when logged in" do
+    sign_in users(:jason)
+    put :update, id: @status, status: { content: @status.content }
     assert_redirected_to status_path(assigns(:status))
   end
 
@@ -43,7 +76,6 @@ class StatusesControllerTest < ActionController::TestCase
     assert_difference('Status.count', -1) do
       delete :destroy, id: @status
     end
-
     assert_redirected_to statuses_path
   end
 end

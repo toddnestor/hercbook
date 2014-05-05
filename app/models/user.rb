@@ -4,6 +4,8 @@ class User < ActiveRecord::Base
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable
 
+    attr_accessor :login
+
     validates :first_name, presence: true
 
     validates :last_name, presence: true
@@ -11,7 +13,7 @@ class User < ActiveRecord::Base
     validates :profile_name, presence: true,
                              uniqueness: true,
                              format: {
-                                 with: /a-zA-Z0-9_-/,
+                                 with: /\A[a-zA-Z0-9_-]+\z/,
                                  message: "Must not contain any special characters besides underscore or dash."
                                  }
 
