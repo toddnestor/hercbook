@@ -1,6 +1,8 @@
+<% if @status.user_id == current_user.id then %>
+
 <h1>Editing status</h1>
 
 <%= render 'form' %>
-
+<% end %>
 <%= link_to 'Show', @status %> |
 <%= link_to 'Back', statuses_path %>
