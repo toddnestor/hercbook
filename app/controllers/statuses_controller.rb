@@ -4,7 +4,7 @@ class StatusesController < ApplicationController
   # GET /statuses
   # GET /statuses.json
   def index
-    @statuses = Status.all.reverse
+    @statuses = Status.order("created_at DESC").all
   end
 
   # GET /statuses/1
