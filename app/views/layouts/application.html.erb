@@ -47,7 +47,7 @@
                     <li><%= link_to "Register", register_path %></li>
                     <li>
                       <%= simple_form_for(:user, :url => session_path(:user), html: {class: "navbar-form navbar-right", role: "form"}) do |f| %>
-                        <%= f.input :email, wrapper_html: {class: "form-group"}, input_html: {class: "form-control", placeholder: "E-mail/Username"}, label: false %>
+                        <%= f.input :email, wrapper_html: {class: "form-group"}, input_html: {class: "form-control", placeholder: "E-mail"}, label: false %>
                         <%= f.input :password, wrapper_html:{class: "form-group"}, input_html: {class: "form-control", placeholder: "Password"}, label: false %>
                         <%= button_tag(type: 'submit', class: "btn btn-primary") do %>
                             Log in

@@ -60,4 +60,8 @@ test "that creating friends on a user works" do
     assert users(:todd).friends.include?(users(:jim))
 end
 
+test "that calling to_param on a user returns the profile_name" do
+    assert_equal "todd", users(:todd).to_param
+end
+
 end
