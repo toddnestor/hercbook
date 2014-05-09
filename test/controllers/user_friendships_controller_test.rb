@@ -55,4 +55,65 @@ class UserFriendshipsControllerTest < ActionController::TestCase
             end
         end
     end
+
+    context "#create" do
+        context "when not logged in" do
+            should "redirect to login page" do
+                get :new
+                assert_response :redirect
+                assert_redirected_to login_path
+            end
+        end
+        
+        context "when logged in" do
+            setup do
+                sign_in users(:todd)
+            end
+
+            context "with no friend id" do
+                setup do
+                    post :create
+                end
+
+                should "set the flash error message" do
+                    assert !flash[:error].empty?
+                end
+
+                should "redirect to the site root" do
+                    assert_redirected_to root_path
+                end
+            end
+
+            context "with a valid friend id" do
+                setup do
+                    post:create, user_friendship: { friend_id: users(:jason) }
+                end
+
+                should "assign a friend object" do
+                    assert assigns(:friend)
+                    assert_equal users(:jason), assigns(:friend)
+                end
+
+                should "assign a user friendship object" do
+                    assert assigns(:user_friendship)
+                    assert_equal users(:todd), assigns(:user_friendship).user
+                    assert_equal users(:jason), assigns(:user_friendship).friend
+                end
+
+                should "create a friendship" do
+                    assert users(:todd).friends.include?(users(:jason))
+                end
+
+                should "redirect to the friend's profile" do
+                    assert_response :redirect
+                    assert_redirected_to profile_path(users(:jason))
+                end
+
+                should "set the flash success message" do
+                    assert flash[:success]
+                    assert_equal "You are now friends with #{users(:jason).full_name}", flash[:success]
+                end
+            end
+        end
+    end
 end
