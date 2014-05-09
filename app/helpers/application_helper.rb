@@ -6,6 +6,8 @@ module ApplicationHelper
              "alert-danger"
         when "notice"
              "alert-success"
+        when "success"
+             "alert-success"
         else
              ""
         end
