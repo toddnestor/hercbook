@@ -1,7 +1,7 @@
 require 'test_helper'
 
 class UserFriendshipsControllerTest < ActionController::TestCase
-
+include ActionView::Helpers::DateHelper
     context "#index" do
         context "when not logged in" do
             should "redirect to login page" do
@@ -40,7 +40,7 @@ class UserFriendshipsControllerTest < ActionController::TestCase
 
             should "display date information on an accepted friendship" do
                 assert_select "#user_friendship_#{@friendship2.id}" do
-                    assert_select "em", "Friendship started #{@friendship2.updated_at}."
+                    assert_select "em", "You have been friends for #{time_ago_in_words(@friendship2.updated_at)}."
                 end
             end
 
