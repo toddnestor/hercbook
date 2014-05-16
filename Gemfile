@@ -25,6 +25,7 @@ end
 gem 'devise'
 gem 'simple_form'
 gem 'state_machine'
+gem 'draper'
 
 # Use SCSS for stylesheets
 gem 'sass-rails', '~> 4.0.3'
