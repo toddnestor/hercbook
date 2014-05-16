@@ -9,6 +9,7 @@ gem 'rails', '4.1.0'
 
 group :test do
     gem 'shoulda'
+    gem 'factory_girl_rails'
 end
 
 group :development, :test do
@@ -23,6 +24,7 @@ end
 
 gem 'devise'
 gem 'simple_form'
+gem 'state_machine'
 
 # Use SCSS for stylesheets
 gem 'sass-rails', '~> 4.0.3'
