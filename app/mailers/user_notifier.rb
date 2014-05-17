@@ -17,7 +17,7 @@ class UserNotifier < ActionMailer::Base
     @user = user_friendship.user
     @friend = user_friendship.friend
 
-    mail to: @user.email,
+    mail to: @friend.email,
          subject: "#{@friend.first_name} has accepted your friendship on My World to Go"
   end
 end
