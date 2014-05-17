@@ -12,5 +12,6 @@
 //
 //= require jquery
 //= require jquery_ujs
+//= require js-routes
 //= require jquery.turbolinks
 //= require_tree .

@@ -66,6 +66,9 @@ GEM
     jquery-turbolinks (2.0.2)
       railties (>= 3.1.0)
       turbolinks
+    js-routes (0.9.7)
+      railties (>= 3.2)
+      sprockets-rails
     json (1.8.1)
     mail (2.5.4)
       mime-types (~> 1.16)
@@ -160,6 +163,7 @@ DEPENDENCIES
   jbuilder (~> 2.0)
   jquery-rails
   jquery-turbolinks
+  js-routes
   pg
   rails (= 4.1.0)
   rails_12factor

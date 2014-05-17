@@ -219,7 +219,7 @@ include ActionView::Helpers::DateHelper
             setup do
                 @user_friendship = create(:pending_user_friendship, user: users(:todd))
                 sign_in users(:todd)
-                get :edit, id: @user_friendship
+                get :edit, id: @user_friendship.friend.profile_name
             end
 
             should "get edit and return success" do
