@@ -2,6 +2,14 @@
     <h1>Friends</h1>
 </div>
 
+<div>
+    <strong>Friend List:</strong>
+    <%= link_to 'Active Friends', user_friendships_path(list: 'friends') %> | 
+    <%= link_to 'Pending Friend Requests', user_friendships_path(list: 'pending') %> | 
+    <%= link_to 'Friend Requests awaiting your approval', user_friendships_path(list: 'requested') %> | 
+    <%= link_to 'Blocked Users', user_friendships_path(list: 'blocked') %>
+</div>
+
 <% @user_friendships.each do |friendship| %>
     <% friend = friendship.friend %>
     <div id="<%= dom_id(friendship) %>" class="friend row">

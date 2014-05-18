@@ -39,7 +39,7 @@
                     <li class="active"><%= link_to "All Statuses", statuses_path %></li>
                     <li><a href="#about">About</a></li>
                     <% if user_signed_in? %>
-                        <li><%= link_to "Friends", user_friendships_path %></li>
+                        <li><%= link_to "Friends", user_friendships_path(list: 'friends') %></li>
                     <% end %>
                 </ul>
                 <ul class="nav navbar-nav pull-right">

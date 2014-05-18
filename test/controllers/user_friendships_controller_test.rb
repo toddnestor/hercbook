@@ -12,8 +12,10 @@ include ActionView::Helpers::DateHelper
 
         context "when logged in" do
             setup do
-                @friendship1 = create(:pending_user_friendship, user: users(:todd), friend: create(:user, first_name: 'Pending', last_name: 'Friend'))
-                @friendship2 = create(:accepted_user_friendship, user: users(:todd), friend: create(:user, first_name: 'Active', last_name: 'Friend'))
+                @friendship1 = create(:pending_user_friendship, user: users(:todd), friend: create(:user, first_name: 'IAmPending', last_name: 'Friend'))
+                @friendship2 = create(:accepted_user_friendship, user: users(:todd), friend: create(:user, first_name: 'IAmActive', last_name: 'Friend'))
+                @friendship3 = create(:requested_user_friendship, user: users(:todd), friend: create(:user, first_name: 'IAmRequested', last_name: 'Friend'))
+                @friendship4 = user_friendships(:blocked_by_todd)
 
                 sign_in users(:todd)
                 get :index
@@ -28,8 +30,8 @@ include ActionView::Helpers::DateHelper
             end
 
             should "display friend's names" do
-                assert_match /Pending/, response.body
-                assert_match /Active/, response.body
+                assert_match /IAmPending/, response.body
+                assert_match /IAmActive/, response.body
             end
 
             should "display pending information on a pending friendship" do
@@ -43,8 +45,86 @@ include ActionView::Helpers::DateHelper
                     assert_select "em", "You have been friends for #{time_ago_in_words(@friendship2.updated_at)}."
                 end
             end
+            
+            context "blocked users" do
+                setup do
+                    get :index, list: 'blocked'
+                end
 
+                should "get the index without error" do
+                    assert_response :success
+                end
 
+                should "not display pending or active friends names" do
+                    assert_no_match /IAmPending\ Friend/, response.body
+                    assert_no_match /IAmActive\ Friend/, response.body
+                    assert_no_match /IAmRequested\ Friend/, response.body
+                end
+
+                should "display blocked users names" do
+                    assert_match /IAmBlocked\ Friend/, response.body
+                end
+            end
+
+            context "requested users" do
+                setup do
+                    get :index, list: 'requested'
+                end
+
+                should "get the index without error" do
+                    assert_response :success
+                end
+
+                should "not display pending, blocked or active friends names" do
+                    assert_no_match /IAmPending\ Friend/, response.body
+                    assert_no_match /IAmActive\ Friend/, response.body
+                    assert_no_match /IAmBlocked\ Friend/, response.body
+                end
+
+                should "display requested users names" do
+                    assert_match /IAmRequested\ Friend/, response.body
+                end
+            end
+            
+            context "pending users" do
+                setup do
+                    get :index, list: 'pending'
+                end
+
+                should "get the index without error" do
+                    assert_response :success
+                end
+
+                should "not display requested, active, or blocked friends names" do
+                    assert_no_match /IAmRequested\ Friend/, response.body
+                    assert_no_match /IAmActive\ Friend/, response.body
+                    assert_no_match /IAmBlocked\ Friend/, response.body
+                end
+
+                should "display pending users names" do
+                    assert_match /IAmPending\ Friend/, response.body
+                end
+            end
+
+            context "active friends" do
+                setup do
+                    get :index, list: 'friends'
+                end
+
+                should "get the index without error" do
+                    assert_response :success
+                end
+
+                should "not display pending, requested, or blocked friends names" do
+                    assert_no_match /IAmPending\ Friend/, response.body
+                    assert_no_match /IAmRequested\ Friend/, response.body
+                    assert_no_match /IAmBlocked\ Friend/, response.body
+                end
+
+                should "display accepted users names" do
+                    assert_match /IAmActive\ Friend/, response.body
+                end
+            end
         end
     end
 
@@ -263,6 +343,34 @@ include ActionView::Helpers::DateHelper
             should "set the flash" do
                 delete :destroy, id: @user_friendship
                 assert_equal 'Friendship destroyed.', flash[:success]
+            end
+        end
+    end
+
+    context "#block" do
+       context "when not logged in" do
+            should "redirect to the login page" do
+                put :block, id: 1
+                assert_response :redirect
+                assert_redirected_to login_path
+            end
+        end
+
+        context "when logged in" do
+            setup do
+                @user_friendship = create(:pending_user_friendship, user: users(:todd))
+                sign_in users(:todd)
+                put :block, id: @user_friendship
+                @user_friendship.reload
+            end
+
+            should "assign a user friendship object" do
+                assert assigns(:user_friendship)
+                assert_equal assigns(:user_friendship), @user_friendship
+            end
+
+            should "update the user friendship state to blocked" do
+                assert_equal 'blocked', @user_friendship.state
             end
         end
     end
