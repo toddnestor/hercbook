@@ -24,6 +24,10 @@ class User < ActiveRecord::Base
 
     has_many :blocked_friends, through: :blocked_user_friendships, source: :friend
 
+    has_many :been_blocked_user_friendships, -> { where(state: 'been_blocked') }, class_name: 'UserFriendship', foreign_key: :user_id
+
+    has_many :been_blocked_friends, through: :been_blocked_user_friendships, source: :friend
+
     validates :first_name, presence: true
 
     validates :last_name, presence: true
@@ -48,5 +52,8 @@ class User < ActiveRecord::Base
     def gravatar_url
         "http://gravatar.com/avatar/#{Digest::MD5.hexdigest(email.strip.downcase)}"
     end
-
+    
+    def has_blocked?(other_user)
+        been_blocked_friends.include?(other_user) || blocked_friends.include?(other_user)
+    end
 end

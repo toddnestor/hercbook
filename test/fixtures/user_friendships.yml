@@ -6,3 +6,8 @@ blocked_by_todd:
   user: todd
   friend: blocked_friend
   state: blocked
+
+todd_blocked_me:
+  user: blocked_friend
+  friend: todd
+  state: been_blocked

@@ -70,4 +70,18 @@ test "that calling to_param on a user returns the profile_name" do
     assert_equal "todd", users(:todd).to_param
 end
 
+context "#has_blocked?" do
+    should "return true if a user has blocked another user" do
+        assert users(:todd).has_blocked?(users(:blocked_friend))
+    end
+
+    should "return true if another user has blocked this user" do
+        assert users(:blocked_friend).has_blocked?(users(:todd))
+    end
+
+    should "return false if a user has not blocked another user" do
+        assert !users(:todd).has_blocked?(users(:jason))
+    end
+end
+
 end
