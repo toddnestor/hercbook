@@ -19,5 +19,8 @@
 *.swp
 *.swo
 
+# Ignore Komodo project files
+*.komodoproject
+
 # Ignore bin directory
 /bin
