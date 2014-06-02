@@ -4,11 +4,11 @@
 
 <div class="row">
     <div class="avatar col-md-2">
-        <%= avatar_profile_link @user_friendship.user %><br />
+        <%= avatar_profile_link @user_friendship.user, {class: 'img-circle'} %><br />
         <%= @user_friendship.user.first_name %>
     </div>
     <div class="avatar col-md-2">
-        <%= avatar_profile_link @user_friendship.friend %><br />
+        <%= avatar_profile_link @user_friendship.friend, {class: 'img-circle'} %><br />
         <%= @user_friendship.friend.first_name %>
     </div>
 </div>

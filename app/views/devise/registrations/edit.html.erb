@@ -19,7 +19,7 @@
       <div class="control-group">
         <label class="control-label">Current Avatar</label>
         <div class="controls">
-          <%= image_tag f.object.avatar.url %>
+          <%= image_tag(f.object.avatar.url(:small), {class: 'img-circle'}) %>
         </div>
       </div>
     <% end %>

@@ -1,5 +1,5 @@
 <div class="page-header">
-  <h1><%= avatar_profile_link @user %><%= @user.full_name %></h1>
+  <h1><%= avatar_profile_link @user, {class: 'img-circle'} %><%= @user.full_name %></h1>
 </div>
 
 <% if signed_in? %>

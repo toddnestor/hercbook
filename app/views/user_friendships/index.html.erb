@@ -14,7 +14,7 @@
     <% friend = friendship.friend %>
     <div id="<%= dom_id(friendship) %>" class="friend row" style="margin-bottom: 10px;">
         <div class="col-md-1">
-            <%= avatar_profile_link friend %>
+            <%= avatar_profile_link friend, {class: 'img-circle'} %>
         </div>
         <div class="col-md-7">
             <strong><%= friend.full_name %></strong><br />

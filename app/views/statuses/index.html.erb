@@ -24,7 +24,7 @@
     <div class="status">
      <div class="row">
       <div class="col-md-2">
-        <%= avatar_profile_link status.user, {}, class: 'pull-left' %>
+        <%= avatar_profile_link status.user, {class: 'img-circle'}, class: 'pull-left' %>
       </div>
       <div class="col-md-10">
         <strong><%= link_to status.user.full_name, profile_path(status.user) %></strong>
