@@ -20,7 +20,7 @@
 <%= link_to "Post a New Status", feed_create_path, class: "btn btn-primary" %>
 
 <% @statuses.each do |status| %>
-<% if signed_in? && !current_user.has_blocked?(status.user) %>
+<% if can_display_status?(status) %>
     <div class="status">
      <div class="row">
       <div class="col-md-2">

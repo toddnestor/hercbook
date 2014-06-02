@@ -56,4 +56,8 @@ class User < ActiveRecord::Base
     def has_blocked?(other_user)
         been_blocked_friends.include?(other_user) || blocked_friends.include?(other_user)
     end
+    
+    def are_we_friends?(other_user)
+        accepted_friends.include?(other_user)
+    end
 end

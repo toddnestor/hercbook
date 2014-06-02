@@ -1,5 +1,9 @@
 module ApplicationHelper
 
+    def can_display_status?(status)
+        signed_in? && current_user.are_we_friends?(status.user) || status.user == current_user || !signed_in?
+    end
+
     def flash_class(type)
         case type
         when "alert"
