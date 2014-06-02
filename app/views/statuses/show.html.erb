@@ -1,16 +1,32 @@
-<p id="notice"><%= notice %></p>
-
-<p>
-
-<strong>Name:</strong>
-<%= @status.user.full_name %>
-</p>
-
-<p>
-  <strong>Content:</strong>
-  <%= @status.content %>
-</p>
-<% if @status.user_id == current_user.id then %>
-<%= link_to 'Edit', edit_status_path(@status) %> |
-<% end %>
-<%= link_to 'Back', statuses_path %>
+<div class="row">
+  <div class="col-md-8 offset2">
+    <%= page_header do %>
+      <h1>
+        <%= avatar_profile_link @status.user %>
+        <%= @status.user.full_name %>
+        <small><%= time_ago_in_words(@status.created_at) + " ago" %></small>
+      </h1>
+    <% end %>
+    
+    <p>
+      <%= @status.content %>
+    </p>
+    
+    <hr />
+    
+    <% if @status.document && @status.document.attachment? %>
+      <%= status_document_link @status %>
+      <hr />
+    <% end %>
+    
+    <div class="meta">
+      
+      <%= link_to 'Back', statuses_path %>
+      <% if signed_in? && @status.user_id == current_user.id then %>
+          |
+        <%= link_to 'Edit', edit_status_path(@status) %> |
+        <%= link_to 'Delete', @status, method: :delete, data: {confirm: "Are you sure you want to delete this status?"} %>
+      <% end %>
+    </div>
+  </div>
+</div>

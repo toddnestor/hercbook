@@ -29,8 +29,9 @@
       <div class="col-md-10">
         <strong><%= link_to status.user.full_name, profile_path(status.user) %></strong>
         <p><%= status.content %></p>
+        <%= status_document_link(status) %>
         <div class="meta">
-            <%= link_to time_ago_in_words(status.created_at) + " ago", status %>
+            <%= link_to time_ago_in_words(status.created_at).concat(" ago"), status %>
             <span class="admin">
             <% if status.user_id == current_user.id %>
                 | <%= link_to "Edit", edit_status_path(status) %> |

@@ -1,6 +1,4 @@
-
-
-<%= simple_form_for(@status, html: {class: "well", role: "form"}) do |f| %>
+<%= simple_form_for(@status, html: {class: "well", role: "form", multipart: true}) do |f| %>
   <% if @status.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(@status.errors.count, "error") %> prohibited this status from being saved:</h2>
@@ -16,6 +14,20 @@
     <legend>New Status</legend>
 
   <%= f.input :content,label: false, input_html:{class: "form-control", rows: "10"}, wrapper_html:{class: "form-group"} %><br>
+  <%= f.fields_for :document do |document_fields| %>
+    <% if document_fields.object.attachment? %>
+      <div class="control-group">
+        <label class="control-label">Current attachment</label>
+        <div class="controls">
+          <%= link_to document_fields.object.attachment_file_name, document_fields.object.attachment.url %>
+        </div>
+      </div>
+      <%= document_fields.input :remove_attachment, as: :boolean, label: "Remove attachment?", label_html: {style: "float:left;"}, input_html: {style: "margin-left: 5px"} %>
+    <% else %>
+      <%= document_fields.input :attachment, as: :file %>
+    <% end %>
+  <% end %>
+  
   <div class="form-actions">
     <%= button_tag(type: 'submit', class: "btn btn-success") do %>
         Post
@@ -23,4 +35,3 @@
   </div>
   </fieldset>
 <% end %>
-
