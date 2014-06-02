@@ -28,6 +28,9 @@ class User < ActiveRecord::Base
 
     has_many :been_blocked_friends, through: :been_blocked_user_friendships, source: :friend
 
+    has_attached_file :avatar
+    validates_attachment_content_type :avatar, :content_type => /\Aimage\/.*\Z/
+
     validates :first_name, presence: true
 
     validates :last_name, presence: true
