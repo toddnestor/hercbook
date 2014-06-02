@@ -85,6 +85,6 @@ before_action :set_status, only: [:show, :edit, :update, :destroy]
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def status_params
-      params.require(:status).permit(:content, :profile_name, :full_name, :user_id, :first_name, :last_name, document_attributes: document_permitted_attributes)
+      params.require(:status).permit(:content, :profile_name, :full_name, :user_id, :first_name, :last_name, :document_id, document_attributes: document_permitted_attributes)
     end
 end
