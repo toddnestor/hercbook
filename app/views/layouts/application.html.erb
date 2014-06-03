@@ -39,6 +39,7 @@
                     <li class="active hidden-sm"><%= link_to "All Statuses", statuses_path %></li>
                     <li class=" hidden-sm"><a href="#about">About</a></li>
                     <% if user_signed_in? %>
+                        <li><%= link_to 'Albums', albums_path(current_user) %></li>
                         <li><%= link_to "Friends", user_friendships_path(list: 'friends') %></li>
                     <% end %>
                 </ul>

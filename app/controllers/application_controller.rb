@@ -15,4 +15,8 @@ class ApplicationController < ActionController::Base
   def document_permitted_attributes
     [:id, :attachment, :document, :attachment_file_name, :document_fields, :build_document, :remove_attachment]
   end
+  
+  def asset_permitted_attributes
+    [:id, :picture, :album_id, :user_id, :asset, :asset_file_name, :asset_content_type, :asset_file_size, :asset_updated_at]
+  end
 end

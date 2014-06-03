@@ -35,6 +35,10 @@ class User < ActiveRecord::Base
     }
     validates_attachment_content_type :avatar, :content_type => /\Aimage\/.*\Z/
 
+    has_many :albums
+    
+    has_many :pictures
+
     validates :first_name, presence: true
 
     validates :last_name, presence: true
