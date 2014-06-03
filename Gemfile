@@ -1,7 +1,7 @@
 #source 'https://ruby.taobao.org'
 source 'https://rubygems.org'
 
-  ruby '2.1.1'
+#  ruby '2.1.1'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '4.1.0'
@@ -28,6 +28,7 @@ gem 'state_machine'
 gem 'draper'
 gem 'js-routes'
 gem 'paperclip'
+gem 'twitter-bootstrap-rails'
 
 # Use SCSS for stylesheets
 gem 'sass-rails', '~> 4.0.3'
