@@ -2,12 +2,13 @@ class AlbumsController < ApplicationController
   before_filter :authenticate_user!, only: [:create, :new, :update, :destroy]
   before_filter :find_user
   before_filter :find_album, only: [:edit, :update, :destroy, :show]
+  before_filter :add_breadcrumbs
   before_action :set_album, only: [:show, :edit, :update, :destroy]
 
   # GET /albums
   # GET /albums.json
   def index
-    @albums = Album.all
+    @albums = @user.albums.all
   end
 
   # GET /albums/1
@@ -18,10 +19,13 @@ class AlbumsController < ApplicationController
   # GET /albums/new
   def new
     @album = current_user.albums.new
+    add_breadcrumb "Adding new album"
   end
 
   # GET /albums/1/edit
   def edit
+    add_breadcrumb @album.title, album_pictures_path(@album)
+    add_breadcrumb "Editing Album"
   end
 
   # POST /albums
@@ -75,6 +79,11 @@ class AlbumsController < ApplicationController
     # Never trust parameters from the scary internet, only allow the white list through.
     def album_params
       params.require(:album).permit(:user_id, :title)
+    end
+    
+    def add_breadcrumbs
+      add_breadcrumb @user.first_name, profile_path(@user)
+      add_breadcrumb "Albums", albums_path(@user)
     end
     
     def find_user

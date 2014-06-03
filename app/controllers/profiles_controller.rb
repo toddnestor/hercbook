@@ -1,6 +1,8 @@
 class ProfilesController < ApplicationController
+  before_filter :find_user
+  before_filter :add_breadcrumbs
+  
   def show
-    @user = User.find_by_profile_name(params[:id])
     if @user
       @statuses = @user.statuses.all
       render action: :show
@@ -8,4 +10,13 @@ class ProfilesController < ApplicationController
       render  file: 'public/404', status: 404, formats: [:html]
     end
   end
+  
+  private
+  def find_user
+      @user = User.find_by_profile_name(params[:id])
+  end
+  
+  def add_breadcrumbs
+      add_breadcrumb @user.first_name, profile_path(@user)
+    end
 end

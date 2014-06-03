@@ -2,27 +2,32 @@ class PicturesController < ApplicationController
   before_filter :authenticate_user!, only: [:new, :create, :edit, :update, :destroy]
   before_filter :find_user
   before_filter :find_album
+  before_filter :add_breadcrumbs
   before_action :set_picture, only: [:show, :edit, :update, :destroy]
 
   # GET /pictures
   # GET /pictures.json
   def index
-    @pictures = Picture.all
+    @pictures = @album.pictures.all
   end
 
   # GET /pictures/1
   # GET /pictures/1.json
   def show
-    @picture = Picture.find(params[:id])
+    @picture = @album.pictures.find(params[:id])
+    add_breadcrumb @picture, album_picture_path(@album, @picture)
   end
 
   # GET /pictures/new
   def new
     @picture = Picture.new
+    add_breadcrumb "Adding new picture"
   end
 
   # GET /pictures/1/edit
   def edit
+    add_breadcrumb @picture, album_picture_path(@album, @picture)
+    add_breadcrumb "Editing Picture"
   end
 
   # POST /pictures
@@ -79,6 +84,12 @@ class PicturesController < ApplicationController
     # Never trust parameters from the scary internet, only allow the white list through.
     def picture_params
       params.require(:picture).permit(:album_id, :user_id, :caption, :description, :asset, asset_attributes: asset_permitted_attributes)
+    end
+    
+    def add_breadcrumbs
+      add_breadcrumb @user.first_name, profile_path(@user)
+      add_breadcrumb "Albums", albums_path(@user)
+      add_breadcrumb @album.title, album_pictures_path(@album)
     end
     
     def find_user
