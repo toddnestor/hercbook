@@ -15,10 +15,19 @@
 
 <% if @statuses %>
   <% @statuses.each do |status| %>
-    <div class="well">
-      <%= status.content %>
+    <div class="well status">
+      <p><%= status.content %></p>
+      <%= image_link_to_status(status) %>
       <hr />
-      <%= link_to time_ago_in_words(status.created_at), status_path(status) %> ago
+        <div class="meta">
+            <%= link_to time_ago_in_words(status.created_at).concat(" ago"), status %>
+            <span class="admin">
+            <% if status.user_id == current_user.id %>
+                | <%= link_to "Edit", edit_status_path(status) %> |
+                <%= link_to "Delete", status, method: :delete, data: { confirm: "Are you sure you want to delete this status for " + status.user.full_name + "?" } %>
+            <% end %>
+            </span>
+        </div>
     </div>
   <% end %>
 <% end %>
