@@ -4,7 +4,7 @@ class ProfilesController < ApplicationController
   
   def show
     if @user
-      @statuses = @user.statuses.all
+      @statuses = @user.statuses.order("created_at DESC").all
       render action: :show
     else
       render  file: 'public/404', status: 404, formats: [:html]
@@ -17,6 +17,6 @@ class ProfilesController < ApplicationController
   end
   
   def add_breadcrumbs
-      add_breadcrumb @user.first_name, profile_path(@user)
-    end
+    add_breadcrumb @user.first_name, profile_path(@user)
+  end
 end

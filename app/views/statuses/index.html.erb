@@ -29,7 +29,7 @@
       <div class="col-md-10">
         <strong><%= link_to status.user.full_name, profile_path(status.user) %></strong>
         <p><%= status.content %></p>
-        <%= status_document_link(status) %>
+        <%= image_link_to_status(status) %>
         <div class="meta">
             <%= link_to time_ago_in_words(status.created_at).concat(" ago"), status %>
             <span class="admin">
