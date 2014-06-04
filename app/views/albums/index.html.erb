@@ -17,4 +17,6 @@
     </li>
   <% end %>
 </ul>
-<%= link_to 'New Album', new_album_path %>
+<% if current_user == @user %>
+  <%= link_to 'New Album', new_album_path %>
+<% end %>
