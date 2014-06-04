@@ -1,5 +1,8 @@
 class StatusesController < ApplicationController
+before_filter :authenticate_user!, only: [:create, :new, :edit, :update, :destroy]
 before_action :set_status, only: [:show, :edit, :update, :destroy]
+
+#rescue_from ActiveModel::MassAssignmentSecurity::Error, with: :render_permission_error
 
 
   # GET /statuses
@@ -24,7 +27,6 @@ before_action :set_status, only: [:show, :edit, :update, :destroy]
     if !@status.document
       @status.build_document
     end
-    
   end
 
   # POST /statuses

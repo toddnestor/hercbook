@@ -1,26 +1,24 @@
-todd:
-    first_name: "Todd"
-    last_name: "Nestor"
-    profile_name: "todd"
-    email: "todd.nestor@gmail.com"
-    encrypted_password: "$2a$10$Fh/Hm8RxDsuPTeBUr6864.GARlcmt7zF2WspaXGr3BIv2C27N.osq"
-
 jason:
-    first_name: "jason"
-    last_name: "moreno"
-    email: "jason@moreno.com"
-    profile_name: "jasonmoreno"
-    encrypted_password: "$2a$10$Fh/Hm8RxDsuPTeBUr6864.GARlcmt7zF2WspaXGr3BIv2C27N.osq"
+  first_name: "Jason"
+  last_name: "Seifer"
+  email: "jason@teamtreehouse.com"
+  profile_name: "jasonseifer"
+  encrypted_password: $2a$10$Fh/Hm8RxDsuPTeBUr6864.GARlcmt7zF2WspaXGr3BIv2C27N.osq
 
 jim:
-    first_name: "Jim"
-    last_name: "Hoskins"
-    email: "jim@teamtreehouse.com"
-    profile_name: "jimhoskins"
-    encrypted_password: "$2a$10$Fh/Hm8RxDsuPTeBUr6864.GARlcmt7zF2WspaXGr3BIv2C27N.osq"
+  first_name: "Jim"
+  last_name: "Hoskins"
+  email: "jim@teamtreehouse.com"
+  profile_name: "jimhoskins"
+
+mike:
+  first_name: "Mike"
+  last_name: "The Frog"
+  email: "mike@teamtreehouse.com"
+  profile_name: "mikethefrog"
 
 blocked_friend:
-    first_name: "IAmBlocked"
-    last_name: "Friend"
-    email: "blocked@whocares.com"
-    profile_name: "gotblocked"
+  first_name: 'Blocked'
+  last_name: 'Friend'
+  email: 'blocked@teamtreehouse.com'
+  profile_name: 'youblockedme'

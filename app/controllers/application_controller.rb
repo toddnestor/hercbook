@@ -19,4 +19,9 @@ class ApplicationController < ActionController::Base
   def asset_permitted_attributes
     [:id, :picture, :album_id, :user_id, :asset, :asset_file_name, :asset_content_type, :asset_file_size, :asset_updated_at]
   end
+  
+  private
+  def render_permission_error
+    render file: 'public/permission_error', status: :error, layout: false
+  end
 end

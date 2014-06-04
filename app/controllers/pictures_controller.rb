@@ -2,6 +2,8 @@ class PicturesController < ApplicationController
   before_filter :authenticate_user!, only: [:new, :create, :edit, :update, :destroy]
   before_filter :find_user
   before_filter :find_album
+  before_filter :find_picture, only: [:edit, :update, :show, :destroy]
+  before_filter :ensure_proper_user, only: [:edit, :update, :destroy, :new, :create]
   before_filter :add_breadcrumbs
   before_action :set_picture, only: [:show, :edit, :update, :destroy]
 
@@ -20,7 +22,12 @@ class PicturesController < ApplicationController
 
   # GET /pictures/new
   def new
-    @picture = Picture.new
+    @picture = @album.pictures.new
+    
+    respond_to do |format|
+      format.html # new.html.erb
+      format.json { render json: @picture }
+    end
     add_breadcrumb "Adding new picture"
   end
 
@@ -76,6 +83,13 @@ class PicturesController < ApplicationController
   end
 
   private
+    def ensure_proper_user
+      if current_user != @user
+        flash[:error] = "You don't have permission to do that."
+        redirect_to album_pictures_path
+      end
+    end
+  
     # Use callbacks to share common setup or constraints between actions.
     def set_picture
       @picture = Picture.find(params[:id])
@@ -97,7 +111,7 @@ class PicturesController < ApplicationController
     end
     
     def find_album
-      if signed_in?
+      if signed_in? && current_user.profile_name == params[:profile_name]
         @album = current_user.albums.find(params[:album_id])
       else
         @album = @user.albums.find(params[:album_id])
@@ -105,6 +119,6 @@ class PicturesController < ApplicationController
     end
     
     def find_picture
-      @picture = @album.pictures.find(params[:picture_id])
+      @picture = @album.pictures.find(params[:id])
     end
 end

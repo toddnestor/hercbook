@@ -1,13 +1,9 @@
 one:
-  user: todd
-  friend: jason
+  user: jason
+  friend: jim
+  state: 'accepted'
 
-blocked_by_todd:
-  user: todd
+blocked_by_jason:
+  user: jason
   friend: blocked_friend
-  state: blocked
-
-todd_blocked_me:
-  user: blocked_friend
-  friend: todd
-  state: been_blocked
+  state: 'blocked'
