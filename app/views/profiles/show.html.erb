@@ -17,7 +17,7 @@
   </div>
 <% end %>
 
-<% if @statuses && current_user.friends.include?(@user) %>
+<% if @statuses && (current_user.friends.include?(@user) || @user == current_user) %>
   <% @statuses.each do |status| %>
     <div class="well status">
       <p><%= status.content %></p>
