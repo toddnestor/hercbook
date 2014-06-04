@@ -17,6 +17,7 @@ class ProfilesController < ApplicationController
   end
   
   def add_breadcrumbs
+    add_breadcrumb "Members", members_list_path
     add_breadcrumb @user.first_name, profile_path(@user)
   end
 end

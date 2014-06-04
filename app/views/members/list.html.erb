@@ -1,17 +1,49 @@
-<h1>Members list</h1>
-<% @users.each do |user| %>
-  <% if !user.have_you_blocked_me?(current_user) && user != current_user %>
-    <div class="row">
-      <div class="col-md-2">
-        <%= avatar_profile_link user, {class: 'img-circle'}, class: 'pull-left' %>
-      </div>
-      <div class="col-md-10">
-        <strong><%= link_to user.full_name, profile_path(user) %></strong>
-        <div class="meta">
-          Joined <%= time_ago_in_words(user.created_at) %> ago.
+<% if user_signed_in? %>
+  <div class="col-md-2">
+    
+  </div>
+  <div class="col-md-8">
+    <h1>Members list</h1>
+    <% @users.each do |user| %>
+      <% if !user.have_you_blocked_me?(current_user) && user != current_user %>
+        <div class="row">
+          <div class="col-md-2">
+            <%= avatar_profile_link user, {class: 'img-circle'}, class: '' %>
+          </div>
+          <div class="col-md-10">
+            <strong><%= link_to user.full_name, profile_path(user) %></strong>
+            <div class="meta">
+              Joined <%= time_ago_in_words(user.created_at) %> ago.
+            </div>
+            <% if signed_in? %>
+              <div id="friend-status<%= user.profile_name %>" style="margin-bottom: 10px;">
+                <% if user != current_user %>
+                  <% if current_user.friends.include?(user) %>
+                    <%= link_to "Edit Friendship", edit_user_friendship_path(user.profile_name), class: 'btn btn-success' %>
+                  <% elsif current_user.pending_friends.include?(user) %>
+                    <%= link_to "Awaiting Friend's Approval", edit_user_friendship_path(user.profile_name), class: 'btn btn-info' %>
+                  <% elsif current_user.requested_friends.include?(user) %>
+                    <%= link_to "Accept Friendship", edit_user_friendship_path(user.profile_name), class: 'btn btn-warning' %>
+                  <% elsif current_user.blocked_friends.include?(user) %>
+                    <%= link_to "Unblock User", edit_user_friendship_path(user.profile_name), class: 'btn btn-danger' %>
+                  <% else %>
+                    <%= link_to "Add Friend", new_user_friendship_path(friend_id: user), class: 'btn btn-primary', id: 'add-friendship', data: { friend_id: user.to_param } %>
+                  <% end %>
+                <% else %>
+                  <%= link_to "Edit Your Profile", edit_user_registration_path, class: 'btn btn-primary' %>
+                <% end %>
+                <% if !current_user.blocked_friends.include?(user) %>
+                  <%= link_to "Albums", albums_path(user), class: 'btn btn-success' %>
+                <% end %>
+              </div>
+            <% end %>
+          </div>
         </div>
-      </div>
-    </div>
-    <hr />
-  <% end %>
+        <hr />
+      <% end %>
+    <% end %>
+  </div>
+  <div class="col-md-2">
+    
+  </div>
 <% end %>

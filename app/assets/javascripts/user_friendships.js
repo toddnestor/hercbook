@@ -10,7 +10,7 @@ $(document).ready(function() {
     }
   });
 
-  $('#add-friendship').click(function(event) {
+  $(document).on('click', '#add-friendship', function(event) {
     event.preventDefault();
     var addFriendshipBtn = $(this);
     $.ajax({
@@ -19,7 +19,7 @@ $(document).ready(function() {
       type: 'POST',
       success: function(e) {
         addFriendshipBtn.hide();
-        $('#friend-status').html("<a href='#' class='btn btn-success'>Friendship Requested</a>");
+        $('#friend-status' + addFriendshipBtn.data('friendId')).prepend("<a href='#' class='btn btn-info'>Awaiting Friend's Approval</a>");
       }
     });
   });
