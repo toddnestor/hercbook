@@ -1,0 +1,17 @@
+<h1>Members list</h1>
+<% @users.each do |user| %>
+  <% if !user.have_you_blocked_me?(current_user) && user != current_user %>
+    <div class="row">
+      <div class="col-md-2">
+        <%= avatar_profile_link user, {class: 'img-circle'}, class: 'pull-left' %>
+      </div>
+      <div class="col-md-10">
+        <strong><%= link_to user.full_name, profile_path(user) %></strong>
+        <div class="meta">
+          Joined <%= time_ago_in_words(user.created_at) %> ago.
+        </div>
+      </div>
+    </div>
+    <hr />
+  <% end %>
+<% end %>

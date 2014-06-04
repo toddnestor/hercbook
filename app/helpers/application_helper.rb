@@ -27,6 +27,7 @@ module ApplicationHelper
         signed_in? && current_user.are_we_friends?(status.user) || status.user == current_user || !signed_in?
     end
     
+    
     def avatar_profile_link(user, image_options={}, html_options={})
         avatar_url = user.avatar? ? user.avatar.url(:thumb) : user.gravatar_url
         link_to(image_tag(avatar_url, image_options), profile_path(user.profile_name), html_options)
