@@ -21,13 +21,18 @@ before_action :set_status, only: [:show, :edit, :update, :destroy]
 
   # GET /statuses/1/edit
   def edit
+    if !@status.document
+      @status.build_document
+    end
+    
   end
 
   # POST /statuses
   # POST /statuses.json
   def create
     @status = current_user.statuses.new(status_params)
-
+    
+    
     respond_to do |format|
       if @status.save
         format.html { redirect_to @status, notice: 'Status was successfully created.' }
@@ -41,27 +46,27 @@ before_action :set_status, only: [:show, :edit, :update, :destroy]
 
   def update
     @status = current_user.statuses.find(params[:id])
-    @document = @status.document
     
-    @status.transaction do
-      @status.update_attributes(status_params)
-      #@document.update_attributes(document_permitted_attributes) if @document
-      unless @status.valid? && !@document || (@status.valid? && @document && @document.valid?)
-        raise ActiveRecord::Rollback #unless @status.valid? && @document.try(:valid?)
+    if status_params && status_params.has_key?(:user_id)
+      status_params.delete(:user_id)
+    end
+
+    if status_params.has_key?(:document_attributes) && params[:status][:document_attributes][:remove_attachment] == '1'
+      @status.document.attachment = nil
+    else
+      if @status.document && @status.document.attachment? && status_params.has_key?(:document_attributes)
+        status_params.delete(:document_attributes)
       end
     end
-    
+
     respond_to do |format|
-      format.html { redirect_to @status, notice: 'Status was successfully updated.' }
-      format.json { head :no_content }
-    end
-  rescue ActiveRecord::Rollback
-    respond_to do |format|
-      format.html do
-        flash.now[:error] = "Update failed."
-        render action: "edit"
+      if @status.update(status_params)
+        format.html { redirect_to @status, notice: 'Status was successfully updated.' }
+        format.json { head :no_content }
+      else
+        format.html { render action: 'edit' }
+        format.json { render json: @status.errors, status: :unprocessable_entity }
       end
-      format.json { render json: @status.errors, status: :unprocessable_entity }
     end
   end
 

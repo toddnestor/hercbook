@@ -11,24 +11,24 @@
     </div>
   <% end %>
   <fieldset>
-    <legend>New Status</legend>
+    <legend>Status</legend>
 
   <%= f.input :content,label: false, input_html:{class: "form-control", rows: "10"}, wrapper_html:{class: "form-group"} %><br>
   <%= f.fields_for :document do |document_fields| %>
     <% if document_fields.object.attachment? %>
+      <%= document_fields.input :remove_attachment, as: :boolean, label: "Remove attachment?", label_html: {style: "float:left;"}, input_html: {style: "margin-left: 5px"} %>
       <div class="control-group">
         <label class="control-label">Current attachment</label>
         <div class="controls">
-          <%= link_to document_fields.object.attachment_file_name, document_fields.object.attachment.url %>
+          <%= status_document_link @status %>
         </div>
       </div>
-      <%= document_fields.input :remove_attachment, as: :boolean, label: "Remove attachment?", label_html: {style: "float:left;"}, input_html: {style: "margin-left: 5px"} %>
     <% else %>
       <%= document_fields.input :attachment, as: :file %>
     <% end %>
   <% end %>
   
-  <div class="form-actions">
+  <div class="form-actions" style="margin-top: 10px;">
     <%= button_tag(type: 'submit', class: "btn btn-success") do %>
         Post
     <% end %>
