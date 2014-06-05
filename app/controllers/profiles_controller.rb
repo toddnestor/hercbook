@@ -1,4 +1,5 @@
 class ProfilesController < ApplicationController
+  before_filter :authenticate_user!
   before_filter :find_user
   before_filter :add_breadcrumbs
   
