@@ -1,6 +1,8 @@
 <p>Updated an
 <% if activity.targetable %>
-  <%= link_to "album", album_pictures_path(activity.targetable.user, activity.targetable) %></p>
+  <%= link_to "new album", album_pictures_path(activity.targetable.user, activity.targetable) %></p>
+  <p><%= link_to activity.targetable.title, album_pictures_path(activity.targetable.user, activity.targetable) %></p>
+  <p><%= link_to album_thumbnail(activity.targetable), album_pictures_path(activity.targetable.user, activity.targetable) %></p>
 <% else %>
   album.</p>
 <% end %>

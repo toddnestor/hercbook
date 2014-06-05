@@ -36,7 +36,7 @@
             </div>
             <div class="collapse navbar-collapse">
                 <ul class="nav navbar-nav">
-                    <li class="active hidden-sm"><%= link_to "All Statuses", statuses_path %></li>
+                    <li class="hidden-sm"><%= link_to "All Statuses", statuses_path %></li>
                     <% if user_signed_in? %>
                         <li><%= link_to 'Members', members_list_path %></li>
                         <li><%= link_to 'Albums', albums_path(current_user) %></li>
