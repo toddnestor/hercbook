@@ -41,7 +41,7 @@ en:
       update_needs_confirmation: "You updated your account successfully, but we need to verify your new email address. Please check your email and click on the confirm link to finalize confirming your new email address."
       updated: "You updated your account successfully."
     sessions:
-      signed_in: "Signed in successfully."
+      signed_in: "Welcome, you signed in successfully.  This activity feed was recently implemented so all activity prior to it does not show up here, please use the All Statuses link at the top to view older statuses.  You'll have to look through individual albums to view any older pictures."
       signed_out: "Signed out successfully."
     unlocks:
       send_instructions: "You will receive an email with instructions about how to unlock your account in a few minutes."

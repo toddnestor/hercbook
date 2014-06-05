@@ -8,7 +8,8 @@ before_action :set_status, only: [:show, :edit, :update, :destroy]
   # GET /statuses
   # GET /statuses.json
   def index
-    @statuses = Status.order("created_at DESC").all
+    params[:page] ||= 1
+    @statuses = Status.for_user(current_user, params)
   end
 
   # GET /statuses/1
