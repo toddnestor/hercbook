@@ -8,9 +8,46 @@ This is being created using:
 
 * Rails 4.0.10
 
-* Using Ubuntu 12.04 installed via crouton on a chromebook
+* Started out using ubuntu 12.04 installed on a chromebook, now using it through a virtual machine and vagrant on windows 8.1
 
 
 Initial launching:
 Created new Rails application and added status updates.
+
+Updates since initial launch (there are a lot and I haven't kept up this file):
+
+*Added friendships
+
+*AJAX calls for adding friends
+
+*Users only see statuses of their friends
+
+*Added photos and photo albums
+
+*Added a members list where users can look for members to add as friends
+
+*Users can block each other, the blocker completely disappears to the blockee, the blockee is still visible to the blocker, but only so he can decide to unblock him
+
+*Users can add pictures to statuses
+
+*Users can now add customized avatars to their accounts
+
+*Avatars show up as circles
+
+*Users can see different lists of friends (active, awaiting friend's approval, awaiting your approval, blocked)
+
+Features that need to be added before it is a more complete app:
+
+*Ajax calls for statuses, image uploads, approving & editing friendships, and activity feeds
+
+*A messaging system (including a live chat like is in other web apps)
+
+*Comments on statuses/images/updates
+
+*Ability to invite new members
+
+*Search for other members
+
+*Pagination throughout site
+
 <tt>rake doc:app</tt>.
