@@ -37,7 +37,7 @@ class UserTest < ActiveSupport::TestCase
 
 	  assert !user.save
 	  assert !user.errors[:profile_name].empty?
-	  assert user.errors[:profile_name].include?("Must be formatted correctly.")
+	  assert user.errors[:profile_name].include?("Must not contain any special characters besides underscore or dash.")
   end
 
   test "a user can have a correctly formatted profile name" do
@@ -55,13 +55,13 @@ class UserTest < ActiveSupport::TestCase
   end
 
   test "that creating friendships on a user works" do
-  	user(:jason).pending_friends << users(:mike)
+  	users(:jason).pending_friends << users(:mike)
   	users(:jason).pending_friends.reload
   	assert users(:jason).pending_friends.include?(users(:mike))
   end
 
   test "that creating a friendship on a user id and friend id works" do
-    UserFriendship.create user_id: users(:jason).id, friend_id: users(:mike).id
+    UserFriendship.create user_id: users(:jason).id, friend_id: users(:mike).id, state: :accepted
     assert users(:jason).friends.include?(users(:mike))
   end
 
@@ -71,35 +71,46 @@ class UserTest < ActiveSupport::TestCase
 
   context "#has_blocked?" do
     should "return true if a user has blocked another users" do
-      assert users(:jason).has_blocked?(users(:blocked_by_jason))
+      assert users(:jason).has_blocked?(users(:blocked_friend))
     end
 
     should "return false if a user has not blocked another users" do
       assert !users(:jason).has_blocked?(users(:jim))
     end
   end
-
+  
   context "#create_activity" do
-    should "increase the Activity count" do
+    should "increase the activity count for statuses" do
       assert_difference 'Activity.count' do
-        users(:jason).create_activity(statuses(:one), 'created')
-      end
-
-      should "set the targetable instance to the item passed in" do
-        activity = users(:jason).create_activity(statuses(:one), 'created')
-        assert_equal statuses(:one), activity.targetable
+        users(:jason).create_activity(statuses(:one),'created')
       end
     end
-
-    should "increase the Activity count with an album" do
+    
+    should "set the targetable instance to the status passed in" do
+      activity = users(:jason).create_activity(statuses(:one),'created')
+      assert_equal statuses(:one), activity.targetable
+    end
+    
+    should "increase the activity count for albums" do
       assert_difference 'Activity.count' do
-        users(:jason).create_activity(albums(:vacation), 'created')
+        users(:jason).create_activity(albums(:vacation),'created')
       end
-
-      should "set the targetable instance to the item passed in with an album" do
-        activity = users(:jason).create_activity(albums(:vacation), 'created')
-        assert_equal statuses(:one), activity.targetable
+    end
+    
+    should "set the targetable instance to the album passed in" do
+      activity = users(:jason).create_activity(albums(:vacation),'created')
+      assert_equal albums(:vacation), activity.targetable
+    end
+    
+    should "increase the activity count for user friendships" do
+      assert_difference 'Activity.count' do
+        users(:jason).create_activity(user_friendships(:one),'created')
       end
+    end
+    
+    should "set the targetable instance to the user friendships passed in" do
+      activity = users(:jason).create_activity(user_friendships(:one),'created')
+      assert_equal user_friendships(:one), activity.targetable
     end
   end
 end

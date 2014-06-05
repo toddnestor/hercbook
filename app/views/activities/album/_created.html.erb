@@ -1,0 +1,6 @@
+<p>Created a
+<% if activity.targetable %>
+  <%= link_to "new album", album_pictures_path(activity.targetable.user, activity.targetable) %></p>
+<% else %>
+  new album.</p>
+<% end %>

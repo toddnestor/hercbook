@@ -25,7 +25,14 @@ class AlbumsControllerTest < ActionController::TestCase
     end
     assert_redirected_to album_path(assigns(:album))
   end
-
+  
+  test "should generate activity item when album is created" do
+    sign_in users(:jason)
+    assert_difference('Activity.count') do
+      post :create, profile_name: @user.profile_name, album: { title: @album.title, user_id: @album.user_id }
+    end
+  end
+  
   test "should show album" do
     get :show, profile_name: @user.profile_name, id: @album.id
     assert_response :redirect
@@ -42,6 +49,13 @@ class AlbumsControllerTest < ActionController::TestCase
     sign_in users(:jason)
     patch :update, profile_name: @user.profile_name, id: @album.id, album: { title: @album.title, user_id: @album.user_id }
     assert_redirected_to album_pictures_path(@album.id)
+  end
+  
+  test "should generate activity item when album is updated" do
+    sign_in users(:jason)
+    assert_difference('Activity.count') do
+      patch :update, profile_name: @user.profile_name, id: @album.id, album: { title: @album.title, user_id: @album.user_id }
+    end
   end
 
   test "should destroy album" do

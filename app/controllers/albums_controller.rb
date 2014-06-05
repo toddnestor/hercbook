@@ -1,5 +1,5 @@
 class AlbumsController < ApplicationController
-  before_filter :authenticate_user!, only: [:create, :new, :update, :destroy]
+  before_filter :authenticate_user!, only: [:show, :create, :new, :update, :destroy]
   before_filter :find_user
   before_filter :find_album, only: [:edit, :update, :destroy]
   before_filter :ensure_proper_user, only: [:edit, :update, :destroy, :new, :create]
@@ -37,6 +37,7 @@ class AlbumsController < ApplicationController
 
     respond_to do |format|
       if @album.save
+        current_user.create_activity(@album,'created')
         format.html { redirect_to @album, notice: 'Album was successfully created.' }
         format.json { render :show, status: :created, location: @album }
       else
@@ -51,6 +52,7 @@ class AlbumsController < ApplicationController
   def update
     respond_to do |format|
       if @album.update(album_params)
+        current_user.create_activity(@album,'Updated')
         format.html { redirect_to album_pictures_path(@album), notice: 'Album was successfully updated.' }
         format.json { render :show, status: :ok, location: @album }
       else

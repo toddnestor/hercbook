@@ -10,6 +10,8 @@ class UserFriendshipsController < ApplicationController
     def accept
         @user_friendship = current_user.user_friendships.find(params[:id])
         if @user_friendship.accept!
+            current_user.create_activity(@user_friendship,'created')
+            @user_friendship.friend.create_activity(@user_friendship.mutual_friendship,'created')
             flash[:success] = "You are now friends with #{@user_friendship.friend.first_name}."
         else
             flash[:error] = "That friendship could not be accepted"

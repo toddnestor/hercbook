@@ -38,6 +38,8 @@ class User < ActiveRecord::Base
     has_many :albums
     
     has_many :pictures
+    
+    has_many :activities
 
     validates :first_name, presence: true
 
@@ -85,5 +87,13 @@ class User < ActiveRecord::Base
     
     def have_you_blocked_me?(current_user)
         blocked_friends.include?(current_user)
+    end
+    
+    def create_activity(item, action)
+        activity = activities.new
+        activity.targetable = item
+        activity.action = action
+        activity.save
+        activity
     end
 end

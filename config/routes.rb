@@ -1,5 +1,7 @@
 Rails.application.routes.draw do
 
+  resource :activities, only: [:index]
+
   get 'members/list'
 
   get 'members/search'
@@ -30,7 +32,7 @@ Rails.application.routes.draw do
   get 'feed', to: 'statuses#index', as: :feed
   get 'feed/create', to: 'statuses#new', as: :feed_create
 
-  root to: 'statuses#index'
+  root to: 'activities#index'
 
   
   scope ":profile_name" do

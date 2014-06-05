@@ -28,6 +28,15 @@ class PicturesControllerTest < ActionController::TestCase
 
     assert_redirected_to album_pictures_path(@user.profile_name, @album.id)
   end
+  
+  test "should create activity when picture is created" do
+    sign_in users(:jason)
+    assert_difference('Activity.count') do
+      post :create, @default_params.merge(picture: { album_id: @picture.album_id, caption: @picture.caption, description: @picture.description, user_id: @picture.user_id })
+    end
+
+    assert_redirected_to album_pictures_path(@user.profile_name, @album.id)
+  end
 
   test "should show picture" do
     sign_in users(:jason)
@@ -45,6 +54,13 @@ class PicturesControllerTest < ActionController::TestCase
     sign_in users(:jason)
     patch :update, profile_name: @user.profile_name, album_id: @album.id, id: @picture.id, picture: { caption: @picture.caption, description: @picture.description }
     assert_redirected_to album_pictures_path(@user.profile_name, @album.id)
+  end
+
+  test "should generate activity when picture is updated" do
+    sign_in users(:jason)
+    assert_difference('Activity.count') do
+      patch :update, profile_name: @user.profile_name, album_id: @album.id, id: @picture.id, picture: { caption: @picture.caption, description: @picture.description }
+    end
   end
 
   test "should destroy picture" do

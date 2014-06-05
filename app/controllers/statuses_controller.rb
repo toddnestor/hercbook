@@ -1,5 +1,5 @@
 class StatusesController < ApplicationController
-before_filter :authenticate_user!, only: [:create, :new, :edit, :update, :destroy]
+before_filter :authenticate_user!, only: [:show, :create, :new, :edit, :update, :destroy]
 before_action :set_status, only: [:show, :edit, :update, :destroy]
 
 #rescue_from ActiveModel::MassAssignmentSecurity::Error, with: :render_permission_error
@@ -34,9 +34,9 @@ before_action :set_status, only: [:show, :edit, :update, :destroy]
   def create
     @status = current_user.statuses.new(status_params)
     
-    
     respond_to do |format|
       if @status.save
+        current_user.create_activity(@status,'created')
         format.html { redirect_to @status, notice: 'Status was successfully created.' }
         format.json { render :show, status: :created, location: @status }
       else
@@ -63,6 +63,7 @@ before_action :set_status, only: [:show, :edit, :update, :destroy]
 
     respond_to do |format|
       if @status.update(status_params)
+        current_user.create_activity(@status,'updated')
         format.html { redirect_to @status, notice: 'Status was successfully updated.' }
         format.json { head :no_content }
       else

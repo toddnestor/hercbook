@@ -1,5 +1,5 @@
 class PicturesController < ApplicationController
-  before_filter :authenticate_user!, only: [:new, :create, :edit, :update, :destroy]
+  before_filter :authenticate_user!, only: [:show, :new, :create, :edit, :update, :destroy]
   before_filter :find_user
   before_filter :find_album
   before_filter :find_picture, only: [:edit, :update, :show, :destroy]
@@ -45,6 +45,7 @@ class PicturesController < ApplicationController
 
     respond_to do |format|
       if @picture.save
+        current_user.create_activity(@picture,'created')
         format.html { redirect_to album_pictures_path(@album), notice: 'Picture was successfully created.' }
         format.json { render :show, status: :created, location: @picture }
       else
@@ -59,6 +60,7 @@ class PicturesController < ApplicationController
   def update
     respond_to do |format|
       if @picture.update(picture_params)
+        current_user.create_activity(@picture,'updated')
         format.html { redirect_to album_pictures_path(@album), notice: 'Picture was successfully updated.' }
         format.json { render :show, status: :ok, location: @picture }
       else
