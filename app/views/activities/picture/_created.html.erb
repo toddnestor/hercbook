@@ -1,6 +1,6 @@
 <p>Added a new
 <% if activity.targetable %>
-  <%= link_to "picture", album_picture_path(activity.targetable.user, activity.targetable.album, activity.targetable) %></p>
+  <%= link_to "picture", album_picture_path(activity.targetable.user, activity.targetable.album, activity.targetable) %> to the album: <%= link_to activity.targetable.album.title, album_pictures_path(activity.targetable.user, activity.targetable.album) %> </p>
   <p><%= link_to image_tag(activity.targetable.asset.url(:small)), album_picture_path(activity.targetable.user, activity.targetable.album, activity.targetable) %></p>
   <p>
     <% if activity.targetable.caption? %>
