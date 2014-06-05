@@ -77,6 +77,10 @@ class User < ActiveRecord::Base
         "http://gravatar.com/avatar/#{Digest::MD5.hexdigest(email.strip.downcase)}"
     end
     
+    def avatar_image_url
+        avatar? ? avatar.url(:thumb) : gravatar_url
+    end
+    
     def has_blocked?(other_user)
         been_blocked_friends.include?(other_user) || blocked_friends.include?(other_user)
     end

@@ -20,3 +20,13 @@
  .alert {
      margin-top: 10px;
  }
+ 
+ div.navbar-inverse ul.dropdown-menu li a {
+    background-image: none;
+    color: #000;
+    margin-left: 40px;
+    margin-right: 40px;
+ }
+div.navbar-inverse ul.dropdown-menu li a dl {
+    margin-left: -30px;
+ }

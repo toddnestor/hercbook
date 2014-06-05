@@ -1,6 +1,5 @@
 Rails.application.routes.draw do
-
-  resource :activities, only: [:index]
+  resources :activities, only: [:index]
 
   get 'members/list'
 

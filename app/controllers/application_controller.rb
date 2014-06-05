@@ -4,6 +4,8 @@ class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
 
   before_action :configure_permitted_parameters, if: :devise_controller?
+  
+  rescue_from ActiveRecord::RecordNotFound, with: :render_404
 
   protected
 
@@ -23,5 +25,9 @@ class ApplicationController < ActionController::Base
   private
   def render_permission_error
     render file: 'public/permission_error', status: :error, layout: false
+  end
+  
+  def render_404
+    render file: 'public/404', status: :not_found
   end
 end
