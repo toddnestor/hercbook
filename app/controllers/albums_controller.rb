@@ -3,6 +3,7 @@ class AlbumsController < ApplicationController
   before_filter :find_user
   before_filter :find_album, only: [:edit, :update, :destroy]
   before_filter :ensure_proper_user, only: [:edit, :update, :destroy, :new, :create]
+  before_filter :only_friends
   before_filter :add_breadcrumbs
   before_action :set_album, only: [:show, :edit, :update, :destroy]
 
@@ -103,5 +104,12 @@ class AlbumsController < ApplicationController
     
     def find_album
       @album = current_user.albums.find(params[:id])
+    end
+    
+    def only_friends
+      unless @user.friends.include?(current_user) || @user == current_user
+        flash[:error] = "You need to be friends to view a user's albums, you can request the friendship on this page."
+        redirect_to profile_path(@user)
+      end
     end
 end

@@ -45,8 +45,10 @@ module ApplicationHelper
              "alert-success"
         when "success"
              "alert-success"
+        when "error"
+             "alert-warning"
         else
-             ""
+             "alert-info"
         end
     end
 
