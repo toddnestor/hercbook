@@ -4,7 +4,7 @@ class User < ActiveRecord::Base
   require "open-uri"
   
   devise :database_authenticatable, :registerable,
-         :recoverable, :rememberable, :trackable, :validatable
+         :recoverable, :rememberable, :trackable, :validatable, :onliner
 
     has_many :statuses
     has_many :user_friendships

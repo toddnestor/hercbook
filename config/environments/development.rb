@@ -37,4 +37,6 @@ Rails.application.configure do
   config.action_mailer.default_url_options = { host: '0.0.0.0:3000' }
 
   Paperclip.options[:command_path] = "/usr/bin/"
+
+  #ENV["REDISTOGO_URL"] = 'redis://redistogo:882165974e82c6b2691a4c220cd4527@koi.redistogo.com:10628'
 end
