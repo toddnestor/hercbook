@@ -11,7 +11,13 @@
             <%= avatar_profile_link user, {class: 'img-circle'}, class: '' %>
           </div>
           <div class="col-md-10">
-            <strong><%= link_to user.full_name, profile_path(user) %></strong>
+            <strong><%= link_to user.full_name, profile_path(user) %>
+            <% if User.online.include?(user) %>
+              <span style="color: #29aa09;">Online</span>
+            <% else %>
+              <span style="color: #999;">Offline</span>
+            <% end %>
+            </strong>
             <div class="meta">
               Joined <%= time_ago_in_words(user.created_at) %> ago.
             </div>
