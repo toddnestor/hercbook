@@ -38,7 +38,7 @@ before_action :set_status, only: [:show, :edit, :update, :destroy]
     respond_to do |format|
       if @status.save
         current_user.create_activity(@status,'created')
-        format.html { redirect_to @status, notice: 'Status was successfully created.' }
+        format.html { redirect_to root_path, notice: 'Status was successfully created.' }
         format.json { render :show, status: :created, location: @status }
       else
         format.html { render :new }
