@@ -22,8 +22,10 @@
 *.swp
 *.swo
 
-# Ignore Komodo project files
+# Ignore Komodo project files and Sublime project files
 *.komodoproject
+*.sublime-project
+*.sublime-workspace
 
 # Ignore bin directory
 /bin

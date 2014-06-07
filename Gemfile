@@ -32,7 +32,7 @@ gem 'paperclip'
 gem 'twitter-bootstrap-rails'
 gem 'will_paginate', '~> 3.0'
 gem 'bootstrap-will_paginate'
-gem 'onliner', :git => 'git://github.com/toddnestor/onliner'
+gem 'onlinerbytodd'
 
 # Use SCSS for stylesheets
 gem 'sass-rails', '~> 4.0.3'
