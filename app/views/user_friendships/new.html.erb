@@ -1,11 +1,8 @@
 <% if @friend %>
     <p>Do you really want to add <%= @friend.full_name %> as a friend?</p>
 
-    <%= form_for @user_friendship, method: :post do |form| %>
         <div class="form form-actions">
-            <%= form.hidden_field :friend_id, value: @friend.profile_name %>
-            <%= submit_tag "Yes, Add Friend", class: 'btn btn-primary' %>
+            <%= link_to "Yes, Add Friend", new_user_friendship_path(friend_id: @friend.profile_name), class: 'btn btn-primary', id: 'add-friendship', data: { friend_id: @friend.to_param, action: 'add' } %>
             <%= link_to "Cancel", profile_path(@friend), class: 'btn' %>
         </div>
-    <% end %>
 <% end %>

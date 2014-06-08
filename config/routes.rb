@@ -21,8 +21,11 @@ Rails.application.routes.draw do
 
   resources :user_friendships do
     member do
-      put :accept
+      post :accept
+      get :accept
       put :block
+      get "/destroy" => "user_friendships#destroy"
+      post "/destroy" => "user_friendships#destroy"
     end
   end
 

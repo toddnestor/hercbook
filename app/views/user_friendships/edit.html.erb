@@ -18,9 +18,7 @@
 
 <div class="form-actions">
     <% if @user_friendship.requested? %>
-        <%= form_for @user_friendship, url: accept_user_friendship_path(@user_friendship), method: :put do |form| %>
-            <%= submit_tag "Accept", class: 'btn btn-primary' %>
-        <% end %>
+        <%= link_to "Accept Friendship", accept_user_friendship_path(@user_friendship_path.id), class: 'btn btn-warning', id: 'add-friendship', data: { friend_id: @friend.profile_name, friendship_id: @user_friendship.id, action: 'accept' } %>
     <% end %>
 
     <%= form_for @user_friendship, url: block_user_friendship_path(@user_friendship), method: :put do |form| %>
@@ -30,4 +28,5 @@
     <%= form_for @user_friendship, url: user_friendship_path(@user_friendship), method: :delete do |form| %>
         <%= submit_tag "Destroy Friendship", class: 'btn btn-danger' %>
     <% end %>
+    <%= link_to "Destroy Friendship", destroy_user_friendship_path(@user_friendship.id), class: 'btn btn-danger', id: 'add-friendship', data: { friend_id: user.to_param, friendship_id: @friend.profile_name, action: 'cancel' } %>
 </div>

@@ -89,6 +89,12 @@ class User < ActiveRecord::Base
         accepted_friends.include?(other_user)
     end
     
+    def user_friendship_number(other_user)
+        if accepted_friends.include?(other_user) || been_blocked_friends.include?(other_user) || pending_friends.include?(other_user) || requested_friends.include?(other_user)
+            other_user.user_friendships.where(friend_id: id).first.id
+        end
+    end
+    
     def have_you_blocked_me?(current_user)
         blocked_friends.include?(current_user)
     end

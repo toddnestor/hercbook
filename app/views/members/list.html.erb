@@ -22,25 +22,27 @@
               Joined <%= time_ago_in_words(user.created_at) %> ago.
             </div>
             <% if signed_in? %>
-              <div id="friend-status<%= user.profile_name %>" style="margin-bottom: 10px;">
-                <% if user != current_user %>
-                  <% if current_user.friends.include?(user) %>
-                    <%= link_to "Edit Friendship", edit_user_friendship_path(user.profile_name), class: 'btn btn-success' %>
-                  <% elsif current_user.pending_friends.include?(user) %>
-                    <%= link_to "Awaiting Friend's Approval", edit_user_friendship_path(user.profile_name), class: 'btn btn-info' %>
-                  <% elsif current_user.requested_friends.include?(user) %>
-                    <%= link_to "Accept Friendship", edit_user_friendship_path(user.profile_name), class: 'btn btn-warning' %>
-                  <% elsif current_user.blocked_friends.include?(user) %>
-                    <%= link_to "Unblock User", edit_user_friendship_path(user.profile_name), class: 'btn btn-danger' %>
+              <div>
+                <div id="friend-status<%= user.profile_name %>" style="margin-bottom: 10px; float: left; margin-right: 10px;">
+                  <% if user != current_user %>
+                    <% if current_user.friends.include?(user) %>
+                      <%= link_to "Destroy Friendship", destroy_user_friendship_path(user.user_friendship_number(current_user)), class: 'btn btn-danger', id: 'add-friendship', data: { friend_id: user.to_param, friendship_id: user.user_friendship_number(current_user), action: 'cancel' } %>
+                    <% elsif current_user.pending_friends.include?(user) %>
+                      <%= link_to "Cancel Friend Request", destroy_user_friendship_path(user.user_friendship_number(current_user)), class: 'btn btn-info', id: 'add-friendship', data: { friend_id: user.to_param, friendship_id: user.user_friendship_number(current_user), action: 'cancel' } %>
+                    <% elsif current_user.requested_friends.include?(user) %>
+                      <%= link_to "Accept Friendship", accept_user_friendship_path(user.user_friendship_number(current_user)), class: 'btn btn-warning', id: 'add-friendship', data: { friend_id: user.to_param, friendship_id: user.user_friendship_number(current_user), action: 'accept' } %>
+                    <% elsif current_user.blocked_friends.include?(user) %>
+                      <%= link_to "Unblock User", destroy_user_friendship_path(user.user_friendship_number(current_user)), class: 'btn btn-success', id: 'add-friendship', data: { friend_id: user.to_param, friendship_id: user.user_friendship_number(current_user), action: 'cancel' } %>
+                    <% else %>
+                      <%= link_to "Add Friend", new_user_friendship_path(friend_id: user), class: 'btn btn-primary', id: 'add-friendship', data: { friend_id: user.to_param, action: 'add' } %>
+                    <% end %>
                   <% else %>
-                    <%= link_to "Add Friend", new_user_friendship_path(friend_id: user), class: 'btn btn-primary', id: 'add-friendship', data: { friend_id: user.to_param } %>
+                    <%= link_to "Edit Your Profile", edit_user_registration_path, class: 'btn btn-primary' %>
                   <% end %>
-                <% else %>
-                  <%= link_to "Edit Your Profile", edit_user_registration_path, class: 'btn btn-primary' %>
-                <% end %>
-                <% if !current_user.blocked_friends.include?(user) %>
+                </div>
+                <div>
                   <%= link_to "Albums", albums_path(user), class: 'btn btn-success' %>
-                <% end %>
+                </div>
               </div>
             <% end %>
           </div>
