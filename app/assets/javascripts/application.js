@@ -26,8 +26,6 @@ Tinycon.setOptions({
     fallback: true
 });
 
-var thisPageTitle = document.title;
-
 var addActivity = function(item) {
         var found = false;
         for (var i = 0; i < window.loadedActivities.length; i++) {
@@ -65,9 +63,8 @@ var renderActivities = function() {
     $activityFeedLink.addClass('dropdown');
     $activityFeedLink.html(html);
     $activityFeedLink.find('a.dropdown-toggle').dropdown();
-    Tinycon.setBubble(window.loadedActivities.length);
-    document.title = "(" + window.loadedActivities.length + ") " + thisPageTitle
 }
+
 var howManyTimes = 0;
 var pollActivity = function () {
     howManyTimes++;
@@ -126,6 +123,13 @@ Handlebars.registerHelper('activityLink',function() {
     
     
     return new Handlebars.SafeString(html); 
+});
+
+$('li#activity-feed').click(function() {
+    window.loadedActivities = [];
+    document.title = thisPageTitle;
+    Tinycon.reset();
+    $('li#activity-feed').html("<a class='dropdown-toggle' href='#' data-toggle='dropdown'>Activity</a><ul class='dropdown-menu' role='menu'><li><a href='#'><dl><dd>No new activity</dd></dl></a></li><li class='divider></li><li><a href='" + Routes.activities_path() + "Activities</a></li></ul>");
 });
 
 window.pollInterval = window.setInterval( pollActivity, 5000 );
