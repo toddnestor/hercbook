@@ -23,7 +23,8 @@ Rails.application.routes.draw do
     member do
       post :accept
       get :accept
-      put :block
+      get "/block" => "user_friendship#block"
+      post "/block" => "user_friendship#block"
       get "/destroy" => "user_friendships#destroy"
       post "/destroy" => "user_friendships#destroy"
     end

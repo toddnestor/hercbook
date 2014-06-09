@@ -46,6 +46,10 @@ $(document).ready(function() {
         }
       });
     break;
+
+    case 'block':
+      
+    break;
     }
   });
 

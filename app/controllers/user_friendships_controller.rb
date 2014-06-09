@@ -73,8 +73,8 @@ class UserFriendshipsController < ApplicationController
               flash[:success] = "Friend request sent."
               redirect_to profile_path(@friend)
             end
-            format.json {  }
-            respond_with @user_friendship
+            format.json { respond_with @user_friendship }
+            
           end
         end
       else
