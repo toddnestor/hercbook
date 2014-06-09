@@ -64,7 +64,6 @@ before_action :set_status, only: [:show, :edit, :update, :destroy]
 
     respond_to do |format|
       if @status.update(status_params)
-        current_user.create_activity(@status,'updated')
         format.html { redirect_to @status, notice: 'Status was successfully updated.' }
         format.json { head :no_content }
       else
