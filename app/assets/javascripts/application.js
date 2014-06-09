@@ -18,6 +18,16 @@
 
 window.loadedActivities = [];
 
+Tinycon.setOptions({
+    height: 10,
+    font: '9px arial',
+    colour: '#fff',
+    background: '#f00',
+    fallback: true
+});
+
+var thisPageTitle = document.title;
+
 var addActivity = function(item) {
         var found = false;
         for (var i = 0; i < window.loadedActivities.length; i++) {
@@ -55,6 +65,8 @@ var renderActivities = function() {
     $activityFeedLink.addClass('dropdown');
     $activityFeedLink.html(html);
     $activityFeedLink.find('a.dropdown-toggle').dropdown();
+    Tinycon.setBubble(window.loadedActivities.length);
+    document.title = "(" + window.loadedActivities.length + ") " + thisPageTitle
 }
 var howManyTimes = 0;
 var pollActivity = function () {
