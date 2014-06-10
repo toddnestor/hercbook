@@ -12,6 +12,10 @@ class ActivitiesController < ApplicationController
           @activities = Activity.for_user_notifications(current_user, params)
         end
       end
+      @comment = Comment.new
+      @status = Status.new
+      @status.build_document
+      
       respond_with @activities
     else
       @activities = {};

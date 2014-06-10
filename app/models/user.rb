@@ -7,6 +7,7 @@ class User < ActiveRecord::Base
          :recoverable, :rememberable, :trackable, :validatable, :onlinerbytodd
 
     has_many :statuses
+    has_many :comments
     has_many :user_friendships
     has_many :friends, -> { where(user_friendships: { state: "accepted"}) }, through: :user_friendships
     
@@ -100,10 +101,29 @@ class User < ActiveRecord::Base
     end
     
     def create_activity(item, action)
-        activity = activities.new
-        activity.targetable = item
-        activity.action = action
-        activity.save
-        activity
+        if action != "comment_created"
+            activity = activities.new
+            activity.targetable = item
+            activity.action = action
+            activity.save
+            activity
+        else
+            @thisType = ""
+            case item.parent_type
+            when 'status'
+                @thisType = "Status"
+            when 'album'
+                @thisType = "Album"
+            when 'picture'
+                @thisType = "Picture"
+            when 'userfriendship'
+                @thisType = "UserFriendship"
+            end
+            @activity = Activity.where("targetable_id = " + item.parent_id.to_s + " AND targetable_type = '" + @thisType + "'").first
+                @activity.updated_at = Time.now
+                @activity.save
+        end
     end
+
+    private
 end

@@ -8,7 +8,7 @@ class Activity < ActiveRecord::Base
     options[:page] ||=1
     friend_ids = user.friends.map(&:id).push(user.id)
     collection = where("user_id in (?)", friend_ids).
-      order("created_at DESC")
+      order("updated_at DESC")
     if options[:since] && !options[:since].blank?
       since = DateTime.strptime( options[:since], '%s')
       collection = collection.where("created_at > ?", since) if since

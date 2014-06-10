@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140605022229) do
+ActiveRecord::Schema.define(version: 20140610102942) do
 
   create_table "activities", force: true do |t|
     t.integer  "user_id"
@@ -33,6 +33,19 @@ ActiveRecord::Schema.define(version: 20140605022229) do
   end
 
   add_index "albums", ["user_id"], name: "index_albums_on_user_id"
+
+  create_table "comments", force: true do |t|
+    t.text     "content"
+    t.integer  "user_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.integer  "parent_id"
+    t.string   "parent_type"
+  end
+
+  add_index "comments", ["parent_id"], name: "index_comments_on_parent_id"
+  add_index "comments", ["parent_type"], name: "index_comments_on_parent_type"
+  add_index "comments", ["user_id"], name: "index_comments_on_user_id"
 
   create_table "documents", force: true do |t|
     t.integer  "user_id"

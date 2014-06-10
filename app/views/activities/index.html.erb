@@ -21,13 +21,50 @@
   <%= link_to "Create a New Album", new_album_path(current_user.profile_name), class: "btn btn-danger" %>
   <%= link_to "Find Friends", members_list_path, class: "btn btn-warning" %>
 </div>
+<div>
+  <%= simple_form_for(@status, html: {role: "form", multipart: true}) do |f| %>
+  <% if @status.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@status.errors.count, "error") %> prohibited this status from being saved:</h2>
 
+      <ul>
+      <% @status.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+  <fieldset>
+  <%= f.input :content,label: false, input_html:{class: "form-control auto-focus", rows: "2", placeholder: "Update your status...", autofocus: ""}, wrapper_html:{class: "form-group", style: "margin-bottom: 0px;"} %>
+  <%= f.fields_for :document do |document_fields| %>
+    <% if document_fields.object.attachment? %>
+      <%= document_fields.input :remove_attachment, as: :boolean, label: "Remove attachment?", label_html: {style: "float:left;"}, input_html: {style: "margin-left: 5px"} %>
+      <div class="control-group">
+        <label class="control-label">Current picture</label>
+        <div class="controls">
+          <%= status_document_link @status %>
+        </div>
+      </div>
+    <% else %>
+      <div class="pull-left"><%= document_fields.input :attachment, as: :file, label: false, input_html: {value: "Add Picture"} %></div>
+    <% end %>
+  <% end %>
+  
+  <div class="form-actions pull-right">
+    <%= button_tag(type: 'submit', class: "btn btn-success") do %>
+        Post
+    <% end %>
+  </div>
+  </fieldset>
+<% end %>
+</div>
+<hr style="margin-top: 3px; margin-bottom: 8px;">
 <% @activities.each do |activity| %>
   <div class="activity">
     <div class="media">
       <%= avatar_profile_link activity.user, {class: 'img-circle'}, class: 'pull-left' %>
       <div class="media-body">
-        <h4 class="media-heading"><%= activity.user.full_name %>
+        <h4 class="media-heading"><%= link_to activity.user.full_name, profile_path(activity.user) %>
           <% if User.online.include?(activity.user) %>
             <span style="color: #29aa09;">Online</span>
           <% end %>
@@ -36,6 +73,45 @@
               locals: { activity: activity } %>
         <small><%= time_ago_in_words(activity.created_at) %> ago</small>
       </div>
+      <% if activity.targetable %>
+
+        <%= simple_form_for(@comment, html: {class: "well", role: "form", multipart: true}) do |f| %>
+          <% @comments = Comment.where("parent_type = '" + activity.targetable_type.downcase + "' AND parent_id = " + activity.targetable.id.to_s).order("created_at") %>
+          <ul class="media-list">
+            <% @comments.each do |comment| %>
+              <li class="media">
+                <%= avatar_profile_link comment.user, {class: 'img-circle pull-left', width: '30px', height: '30px'} %>
+                <div class="media-body">
+                  <h5 class="media-heading">
+                    <%= link_to comment.user.full_name, profile_path(comment.user) %>
+                    <% if User.online.include?(comment.user) %>
+                      <span style="color: #29aa09;">Online</span>
+                    <% end %>
+                  </h5>
+                  <%= comment.content %>
+                  <p><small><%= time_ago_in_words(comment.created_at) %> ago</small></p>
+                </div>
+              </li>
+              <hr style="margin-top: 2px; margin-bottom: 2px;">
+            <% end %>
+          </ul>
+        <%= f.error_notification %>
+
+        <div class="form-inputs">
+
+          <%= f.input :parent_type, as: :hidden, input_html: {value: activity.targetable_type.downcase} %>
+          <%= f.input :parent_id, as: :hidden, input_html: {value: activity.targetable.id} %>
+          <%= f.input :content, label: false, input_html: {class: 'form-control', placeholder: "Add a comment..."} %>
+
+        </div>
+
+        <div class="form-actions">
+          <%= button_tag(type: 'submit', class: "btn btn-success") do %>
+              Add Comment
+          <% end %>
+        </div>
+      <% end %>
+    <% end %>
     </div>
   </div>
   <hr />

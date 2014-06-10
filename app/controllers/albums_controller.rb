@@ -53,7 +53,6 @@ class AlbumsController < ApplicationController
   def update
     respond_to do |format|
       if @album.update(album_params)
-        current_user.create_activity(@album,'Updated')
         format.html { redirect_to album_pictures_path(@album), notice: 'Album was successfully updated.' }
         format.json { render :show, status: :ok, location: @album }
       else
