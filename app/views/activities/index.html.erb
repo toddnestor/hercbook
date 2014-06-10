@@ -17,7 +17,6 @@
     <h1>What's new with your friends?</h1>
 </div>
 <div class="controls">
-  <%= link_to "Post a New Status", feed_create_path, class: "btn btn-primary" %>
   <%= link_to "Create a New Album", new_album_path(current_user.profile_name), class: "btn btn-danger" %>
   <%= link_to "Find Friends", members_list_path, class: "btn btn-warning" %>
 </div>
@@ -51,7 +50,7 @@
   <% end %>
   
   <div class="form-actions pull-right">
-    <%= button_tag(type: 'submit', class: "btn btn-success") do %>
+    <%= button_tag(type: 'submit', class: "btn btn-primary") do %>
         Post
     <% end %>
   </div>
