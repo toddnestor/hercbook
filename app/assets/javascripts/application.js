@@ -135,4 +135,6 @@ var clearNotifications = function() {
     $('li#activity-feed').html("<a class='dropdown-toggle' href='#' data-toggle='dropdown'>Activity</a><ul class='dropdown-menu' role='menu'><li><a href='#'><dl><dd>No new activity</dd></dl></a></li><li class='divider></li><li><a href='" + Routes.activities_path() + "Activities</a></li></ul>");
 }
 
+setTimeout("jQuery('.alert').alert('close');", 3000);
+
 window.pollInterval = window.setInterval( pollActivity, 5000 );
