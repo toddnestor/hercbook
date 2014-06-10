@@ -36,7 +36,22 @@
             </div>
             <div class="collapse navbar-collapse">
                 <ul class="nav navbar-nav">
-                    <li class="hidden-sm" id="activity-feed"><%= link_to "Activity", activities_path %></li>
+                    <li class="hidden-sm" id="activity-feed">
+                      <a class='dropdown-toggle' href='#' data-toggle='dropdown' onclick="javascript:clearNotifications();">Activity</a>
+                      <ul class='dropdown-menu' role='menu'>
+                        <li>
+                          <a href='#'>
+                            <dl>
+                              <dd>No new activity</dd>
+                            </dl>
+                          </a>
+                        </li>
+                        <li class='divider'></li>
+                        <li>
+                          <%= link_to "Activities", activities_path %>
+                        </li>
+                      </ul>
+                    </li>
                     <% if user_signed_in? %>
                         <li><%= link_to 'Members', members_list_path %></li>
                         <li><%= link_to 'Albums', albums_path(current_user) %></li>
@@ -79,7 +94,7 @@
     </div>
 </body>
 <script id="activities-template" type="text/x-handlebars-template">
-  <a class="dropdown-toggle" href="#" data-toggle="dropdown">Activity ({{count}})</a>
+  <a class="dropdown-toggle" href="#" data-toggle="dropdown"  onclick="javascript:clearNotifications();">Activity ({{count}})</a>
   <ul class="dropdown-menu" role="menu">
     {{#each activities}}
       {{activityLink}}

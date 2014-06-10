@@ -74,6 +74,7 @@ var pollActivity = function () {
     if (howManyTimes == 1) {
     window.lastFetch = Math.floor((new Date).getTime() / 1000);
     }
+
     $.ajax({
         url: Routes.activities_path({format: 'json', since: window.lastFetch}),
         type: "GET",
@@ -132,7 +133,8 @@ var clearNotifications = function() {
     window.loadedActivities = [];
     document.title = thisPageTitle;
     Tinycon.reset();
-    $('li#activity-feed').html("<a class='dropdown-toggle' href='#' data-toggle='dropdown'>Activity</a><ul class='dropdown-menu' role='menu'><li><a href='#'><dl><dd>No new activity</dd></dl></a></li><li class='divider></li><li><a href='" + Routes.activities_path() + "Activities</a></li></ul>");
+    $('li#activity-feed > a.dropdown-toggle').html("Activity");
+    //$('li#activity-feed').html("<a class='dropdown-toggle' href='#' data-toggle='dropdown'  onclick='javascript:clearNotifications();'>Activity</a><ul class='dropdown-menu' role='menu'><li><a href='#'><dl><dd>No new activity</dd></dl></a></li><li class='divider'></li><li><a href='" + Routes.activities_path() + "'>Activities</a></li></ul>");
 }
 
 setTimeout("jQuery('.alert').alert('close');", 3000);
