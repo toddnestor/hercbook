@@ -101,13 +101,13 @@ class User < ActiveRecord::Base
     end
     
     def create_activity(item, action)
-        if action != "comment_created"
+        
             activity = activities.new
             activity.targetable = item
             activity.action = action
             activity.save
             activity
-        else
+        if action == "comment_created"
             @thisType = ""
             case item.parent_type
             when 'status'

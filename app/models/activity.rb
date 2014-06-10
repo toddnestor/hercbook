@@ -7,7 +7,7 @@ class Activity < ActiveRecord::Base
   def self.for_user(user, options={})
     options[:page] ||=1
     friend_ids = user.friends.map(&:id).push(user.id)
-    collection = where("user_id in (?)", friend_ids).
+    collection = where("user_id in (?) AND targetable_type != ?", friend_ids, 'Comment').
       order("updated_at DESC")
     if options[:since] && !options[:since].blank?
       since = DateTime.strptime( options[:since], '%s')

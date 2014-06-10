@@ -123,6 +123,10 @@ Handlebars.registerHelper('activityLink',function() {
             activity.action = "accepted";
             html = "<li><a href='" + path + "'><dl><dt><img style='margin-right: 5px;' class='img-circle pull-left' height='30px' width='30px' src='" + activity.user_avatar + "'> " +  activity.user_name + " " + activity.action + " a " + linkText +".</dt><dd></dd></dl></a></li>";
             break;
+        case "comment":
+            path = Routes.profile_path(activity.profile_name);
+            html = "<li><a href='" + Routes.activities_path() + "'><dl><dt><img style='margin-right: 5px;' class='img-circle pull-left' height='30px' width='30px' src='" + activity.user_avatar + "'> " +  activity.user_name + " added a new " + linkText +".</dt><dd>" + activity.targetable.content + "</dd></dl></a></li>";
+            break;
     }
     
     
