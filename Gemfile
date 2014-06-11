@@ -33,6 +33,7 @@ gem 'twitter-bootstrap-rails'
 gem 'will_paginate', '~> 3.0'
 gem 'bootstrap-will_paginate'
 gem 'onlinerbytodd'#, :git => 'git://github.com/toddnestor/onliner-by-todd'
+gem 'simple_format'
 
 # Use SCSS for stylesheets
 gem 'sass-rails', '~> 4.0.3'
