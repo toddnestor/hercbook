@@ -7,11 +7,12 @@ class Activity < ActiveRecord::Base
   def self.for_user(user, options={})
     options[:page] ||=1
     friend_ids = user.friends.map(&:id).push(user.id)
-    collection = where("user_id in (?) AND targetable_type != ?", friend_ids, 'Comment').
+    active_users = User.all.map(&:id)
+    collection = where("user_id in (?) AND targetable_type != ? AND user_id in (?)", friend_ids, 'Comment', active_users).
       order("updated_at DESC")
     if options[:since] && !options[:since].blank?
       since = DateTime.strptime( options[:since], '%s')
-      collection = collection.where("created_at > ?", since) if since
+      collection = collection.where("created_at > ? AND user_id in (?)", since, active_users) if since
     end
       collection.page(options[:page])
   end
@@ -19,11 +20,12 @@ class Activity < ActiveRecord::Base
   def self.for_user_notifications(user, options={})
     options[:page] ||=1
     friend_ids = user.friends.map(&:id)
+    active_users = User.all.map(&:id)
     collection = where("user_id in (?)", friend_ids).
       order("created_at DESC")
     if options[:since] && !options[:since].blank?
       since = DateTime.strptime( options[:since], '%s')
-      collection = collection.where("created_at > ?", since) if since
+      collection = collection.where("created_at > ? AND user_id in (?)", since, active_users) if since
     end
       collection.page(options[:page])
   end

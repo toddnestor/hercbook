@@ -1,5 +1,5 @@
 <p>Is now friends with
-<% if activity.targetable %>
+<% if activity.targetable && User.all.include?(activity.targetable.friend) %>
   <%= activity.targetable.friend.full_name %> <%= avatar_profile_link activity.targetable.friend, {class: 'img-circle'} %></p>
 <% else %>
   a user.</p>
