@@ -21,12 +21,27 @@
      margin-top: 10px;
  }
  
- div.navbar-inverse ul.dropdown-menu li a {
+ div.navbar-inverse ul.dropdown-menu li a, div.navbar-inverse ul.dropdown-menu li {
     background-image: none;
     color: #000;
     margin-left: 40px;
     margin-right: 40px;
  }
-div.navbar-inverse ul.dropdown-menu li a dl {
+
+div.navbar-inverse ul.dropdown-menu li a dl, div.navbar-inverse ul.dropdown-menu li dl {
     margin-left: -30px;
+ }
+
+ li table a, li table tr td strong a, li table tr td div div a.btn.btn-warning, a.btn.btn-success {
+ 	margin: 0 0 0 5px;
+ }
+
+ li table tr td div div a.btn.btn-warning, li table tr td div div a.btn.btn-success, li table tr td div div a.btn.btn-info, li table tr td div div a.btn.btn-primary, li table tr td div div a.btn.btn-danger {
+ 	color: white;
+ 	margin: 0 0 0 5px;
+ }
+
+ li.disappear {
+ 	visibility: hidden;
+	float: left;
  }

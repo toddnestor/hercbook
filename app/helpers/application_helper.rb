@@ -22,7 +22,7 @@ module ApplicationHelper
             link_to(image_tag(status.document.attachment.url(:small)), status)
         end
     end
-    
+
     def can_display_status?(status)
         signed_in? && current_user.are_we_friends?(status.user) || status.user == current_user || !signed_in?
     end

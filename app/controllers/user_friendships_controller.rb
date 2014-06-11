@@ -1,10 +1,47 @@
 class UserFriendshipsController < ApplicationController
     before_filter :authenticate_user!
     respond_to :html, :json
-        
+
     def index
+      if signed_in?
         @user_friendships = UserFriendshipDecorator.decorate_collection(friendship_association.all)
         respond_with @user_friendships
+      end
+    end
+
+    def feed
+      if signed_in?
+        respond_to do |format|
+          format.json do
+
+            @user_friendships = UserFriendship.where("user_id = ? AND state = 'requested'", current_user.id)
+            if params[:since] && !params[:since].blank?
+
+              
+
+              since = DateTime.strptime( params[:since], '%s')
+              @user_friendships = @user_friendships.where("created_at > ?", since) if since
+            end
+
+            @user_friendships = @user_friendships.map do |f|
+              {
+                id: f.id, 
+                state: f.state,
+                friend_id: [User.where('id = ' + f[:friend_id].to_s).first].map do |u|
+                  {
+                    first_name: u.first_name,
+                    last_name: u.last_name,
+                    profile_name: u.profile_name,
+                    id: u.id,
+                    avatar_file_name: u.avatar_image_url
+                  }
+                end
+              }
+            end.flatten
+          end
+        end
+        respond_with @user_friendships
+      end
     end
 
     def block

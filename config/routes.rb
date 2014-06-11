@@ -30,6 +30,10 @@ Rails.application.routes.draw do
       get "/destroy" => "user_friendships#destroy"
       post "/destroy" => "user_friendships#destroy"
     end
+    collection do
+      get "feed" => "user_friendships#feed"
+      post "feed" => "user_friendships#feed"
+    end
   end
 
   resources :statuses

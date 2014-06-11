@@ -55,7 +55,22 @@
                     <% if user_signed_in? %>
                         <li><%= link_to 'Members', members_list_path %></li>
                         <li><%= link_to 'Albums', albums_path(current_user) %></li>
-                        <li><%= link_to "Friends", user_friendships_path(list: 'friends') %></li>
+                        <li class="hidden-sm" id="friend-feed">
+                          <a class='dropdown-toggle' href='#' data-toggle='dropdown' onclick="javascript:clearFriendNotifications();">Friends</a>
+                          <ul class='dropdown-menu' role='menu'>
+                            <li>
+                              <a href='#'>
+                                <dl>
+                                  <dd>No friend requests pending</dd>
+                                </dl>
+                              </a>
+                            </li>
+                            <li class='divider'></li>
+                            <li>
+                              <%= link_to "Friends", user_friendships_path(list: 'friends') %>
+                            </li>
+                          </ul>
+                        </li>
                     <% end %>
                 </ul>
                 <ul class="nav navbar-nav pull-right">
@@ -101,6 +116,16 @@
     {{/each}}
     <li class="divider"></li>
     <li><a href="{{activityFeedLink}}">Activities</a></li>
+  </ul>
+</script>
+<script id="friendships-template" type="text/x-handlebars-template">
+  <a class="dropdown-toggle" href="#" data-toggle="dropdown"  onclick="javascript:clearFriendNotifications();">Friends ({{count}})</a>
+  <ul class="dropdown-menu" role="menu">
+    {{#each friendships}}
+      {{friendLink}}
+    {{/each}}
+    <li class="divider"></li>
+    <li><a href="/user_friendships?list=friends">Friends</a></li>
   </ul>
 </script>
 </html>

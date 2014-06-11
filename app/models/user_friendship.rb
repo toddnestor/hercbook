@@ -58,6 +58,18 @@ class UserFriendship < ActiveRecord::Base
         self.class.where({user_id: friend_id, friend_id: user_id}).first
     end
 
+    def friend_name
+      User.where('id = ' + friend_id).first.full_name
+    end
+  
+    def friend_profile_name
+      User.where('id = ' + friend_id).first.profile_name
+    end
+  
+    def friend_avatar
+      User.where('id = ' + friend_id).first.avatar_image_url
+    end
+
     def accept_mutual_friendship!
         # Grab the mutual friendship and update the state without using the state machine so that no infinite loop was created
         mutual_friendship.update_attribute(:state, 'accepted')
