@@ -1,3 +1,5 @@
+require 'simple_format'
+
 class StatusesController < ApplicationController
 before_filter :authenticate_user!, only: [:show, :create, :new, :edit, :update, :destroy]
 before_action :set_status, only: [:show, :edit, :update, :destroy]
@@ -33,8 +35,9 @@ before_action :set_status, only: [:show, :edit, :update, :destroy]
   # POST /statuses
   # POST /statuses.json
   def create
+    c = SimpleFormat::Converter.new
     @status = current_user.statuses.new(status_params)
-    
+    @status[:content] = c.rich_with(@status[:content])
     respond_to do |format|
       if @status.save
         current_user.create_activity(@status,'created')
@@ -48,7 +51,9 @@ before_action :set_status, only: [:show, :edit, :update, :destroy]
   end
 
   def update
+    c = SimpleFormat::Converter.new
     @status = current_user.statuses.find(params[:id])
+    @status[:content] = c.rich_with(@status[:content])
     
     if status_params && status_params.has_key?(:user_id)
       status_params.delete(:user_id)

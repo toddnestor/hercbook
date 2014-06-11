@@ -1,3 +1,5 @@
+require 'simple_format'
+
 class CommentsController < ApplicationController
   before_filter :authenticate_user!, only: [:create, :new, :update, :destroy]
   before_action :set_comment, only: [:show, :edit, :update, :destroy]
@@ -25,8 +27,9 @@ class CommentsController < ApplicationController
   # POST /comments
   # POST /comments.json
   def create
+    c = SimpleFormat::Converter.new
     @comment = current_user.comments.new(comment_params)
-
+    @comment[:content] = c.rich_with(@comment[:content])
     respond_to do |format|
       if @comment.save
 
@@ -44,6 +47,8 @@ class CommentsController < ApplicationController
   # PATCH/PUT /comments/1
   # PATCH/PUT /comments/1.json
   def update
+    c = SimpleFormat::Converter.new
+    @comment[:content] = c.rich_with(@comment[:content])
     respond_to do |format|
       if @comment.update(comment_params)
         format.html { redirect_to @comment, notice: 'Comment was successfully updated.' }
