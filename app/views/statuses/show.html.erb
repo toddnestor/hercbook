@@ -41,7 +41,7 @@
                       <span style="color: #29aa09;">Online</span>
                     <% end %>
                   </h5>
-                  <%= EmoticonFontify.emoticon_fontify(h(comment.content.html_safe)) %>
+                  <%= replace_smilies(comment.content.html_safe) %>
                   <p><small><%= time_ago_in_words(comment.created_at) %> ago</small></p>
                 </div>
               </li>

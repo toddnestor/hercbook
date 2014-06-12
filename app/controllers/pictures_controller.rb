@@ -12,6 +12,7 @@ class PicturesController < ApplicationController
   # GET /pictures.json
   def index
     @pictures = @album.pictures.all
+    @comment = Comment.new
   end
 
   # GET /pictures/1
@@ -19,6 +20,7 @@ class PicturesController < ApplicationController
   def show
     @picture = @album.pictures.find(params[:id])
     add_breadcrumb @picture, album_picture_path(@album, @picture)
+    @comment = Comment.new
   end
 
   # GET /pictures/new

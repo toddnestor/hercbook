@@ -44,6 +44,9 @@ class UserFriendshipsController < ApplicationController
       end
     end
 
+    def show
+    end
+
     def block
         @user_friendship = current_user.user_friendships.find(params[:id])
         if @user_friendship.block!

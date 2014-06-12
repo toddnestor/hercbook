@@ -120,8 +120,24 @@ class User < ActiveRecord::Base
                 @thisType = "UserFriendship"
             end
             @activity = Activity.where("targetable_id = " + item.parent_id.to_s + " AND targetable_type = '" + @thisType + "'").first
+            if @activity
                 @activity.updated_at = Time.now
                 @activity.save
+            else
+                activity = activities.new
+                case item.parent_type
+                when 'status'
+                    activity.targetable = Status.where('id = ' + item.parent_id.to_s).first
+                when 'album'
+                    activity.targetable = Album.where('id = ' + item.parent_id.to_s).first
+                when 'picture'
+                    activity.targetable = Picture.where('id = ' + item.parent_id.to_s).first
+                when 'userfriendship'
+                    activity.targetable = UserFriendship.where('id = ' + item.parent_id.to_s).first
+                end
+                activity.action = 'updated'
+                activity.save
+            end
         end
     end
 

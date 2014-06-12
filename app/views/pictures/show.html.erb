@@ -12,3 +12,40 @@
 
 <%= link_to 'Edit', edit_album_picture_path(@album, @picture) %> |
 <%= link_to 'Album', album_pictures_path(@album) %>
+
+<%= simple_form_for(@comment, html: {class: "well", role: "form", multipart: true}) do |f| %>
+<% @comments = Comment.where("parent_type = 'picture' AND parent_id = " + @picture.id.to_s).order("created_at") %>
+<ul class="media-list">
+<% @comments.each do |comment| %>
+  <li class="media">
+    <%= avatar_profile_link comment.user, {class: 'img-circle pull-left', width: '30px', height: '30px'} %>
+    <div class="media-body">
+      <h5 class="media-heading">
+        <%= link_to comment.user.full_name, profile_path(comment.user) %>
+        <% if User.online.include?(comment.user) %>
+          <span style="color: #29aa09;">Online</span>
+        <% end %>
+      </h5>
+      <%= replace_smilies(comment.content.html_safe) %>
+      <p><small><%= time_ago_in_words(comment.created_at) %> ago</small></p>
+    </div>
+  </li>
+  <hr style="margin-top: 2px; margin-bottom: 2px;">
+<% end %>
+</ul>
+<%= f.error_notification %>
+
+<div class="form-inputs">
+
+<%= f.input :parent_type, as: :hidden, input_html: {value: 'picture'} %>
+<%= f.input :parent_id, as: :hidden, input_html: {value: @picture.id} %>
+<%= f.input :content, label: false, input_html: {class: 'form-control', placeholder: "Add a comment..."} %>
+
+</div>
+
+<div class="form-actions">
+<%= button_tag(type: 'submit', class: "btn btn-success") do %>
+  Add Comment
+<% end %>
+</div>
+<% end %>
