@@ -1,34 +1,34 @@
 .smilies{width:20px; height:20px; display: inline-block;}
-.smile{background:url(smilies/smilies-sprite.png) 0 0;}
-.laugh{background:url(smilies/smilies-sprite.png) -20px 0;}
-.tongue{background:url(smilies/smilies-sprite.png) -20px -20px;}
-.smart{background:url(smilies/smilies-sprite.png) -40px 0;}
-.sad{background:url(smilies/smilies-sprite.png) -60px -60px;}
-.wink{background:url(smilies/smilies-sprite.png) -60px -20px;}
-.angry{background:url(smilies/smilies-sprite.png) -60px 0;}
-.louds{background:url(smilies/smilies-sprite.png) -60px -60px;}
-.evil{background:url(smilies/smilies-sprite.png) -80px -104px;}
-.skeptical{background:url(smilies/smilies-sprite.png) -80px -40px;}
-.confused{background:url(smilies/smilies-sprite.png) -40px -20px;}
-.sleeping{background:url(smilies/smilies-sprite.png) -20px -60px;}
-.like{background:url(smilies/smilies-sprite.png) 0 -104px;}
-.dislike{background:url(smilies/smilies-sprite.png) -20px -104px;}
-.rofl{background:url(smilies/smilies-sprite.png) -60px -40px;}
+.smile{background:url('http://s3.amazonaws.com/myworldtogo/smilies/smilies-sprite.png') 0 0;}
+.laugh{background:url('http://s3.amazonaws.com/myworldtogo/smilies/smilies-sprite.png') -20px 0;}
+.tongue{background:url('http://s3.amazonaws.com/myworldtogo/smilies/smilies-sprite.png') -20px -20px;}
+.smart{background:url('http://s3.amazonaws.com/myworldtogo/smilies/smilies-sprite.png') -40px 0;}
+.sad{background:url('http://s3.amazonaws.com/myworldtogo/smilies/smilies-sprite.png') -60px -60px;}
+.wink{background:url('http://s3.amazonaws.com/myworldtogo/smilies/smilies-sprite.png') -60px -20px;}
+.angry{background:url('http://s3.amazonaws.com/myworldtogo/smilies/smilies-sprite.png') -60px 0;}
+.louds{background:url('http://s3.amazonaws.com/myworldtogo/smilies/smilies-sprite.png') -60px -60px;}
+.evil{background:url('http://s3.amazonaws.com/myworldtogo/smilies/smilies-sprite.png') -80px -104px;}
+.skeptical{background:url('http://s3.amazonaws.com/myworldtogo/smilies/smilies-sprite.png') -80px -40px;}
+.confused{background:url('http://s3.amazonaws.com/myworldtogo/smilies/smilies-sprite.png') -40px -20px;}
+.sleeping{background:url('http://s3.amazonaws.com/myworldtogo/smilies/smilies-sprite.png') -20px -60px;}
+.like{background:url('http://s3.amazonaws.com/myworldtogo/smilies/smilies-sprite.png') 0 -104px;}
+.dislike{background:url('http://s3.amazonaws.com/myworldtogo/smilies/smilies-sprite.png') -20px -104px;}
+.rofl{background:url('http://s3.amazonaws.com/myworldtogo/smilies/smilies-sprite.png') -60px -40px;}
 
 /* Animated Smilies*/
 
-.animatesmile{background:url(smilies/smile.gif) no-repeat 0 0;}
-.animatelaugh{background:url(smilies/bigsmile.gif) 0 0;}
-.animatetongue{background:url(smilies/tongueout.gif) 0 0;}
-.animatesmart{background:url(smilies/cool.gif) 0 0;}
-.animatesad{background:url(smilies/sadsmile.gif) 0 0;}
-.animatewink{background:url(smilies/wink.gif) 0 0;}
-.animateangry{background:url(smilies/angry.gif) 0 0;}
-.animatelouds{background:url(smilies/bigsmile.gif) 0 0;}
-.animateevil{background:url(smilies/evilgrin.gif) 0 0;}
-.animateskeptical{background:url(smilies/worried.gif) 0 0;}
-.animateconfused{background:url(smilies/wondering.gif) 0 0;}
-.animatesleeping{background:url(smilies/sleepy.gif) 0 0;}
-.animatelike{background:url(smilies/yes.gif) 0 0;}
-.animatedislike{background:url(smilies/no.gif) 0 0;}
-.animaterofl{background:url(smilies/rofl.gif) 0 0;}
+.animatesmile{background:url('http://s3.amazonaws.com/myworldtogo/smilies/smile.gif') no-repeat 0 0;}
+.animatelaugh{background:url('http://s3.amazonaws.com/myworldtogo/smilies/bigsmile.gif') 0 0;}
+.animatetongue{background:url('http://s3.amazonaws.com/myworldtogo/smilies/tongueout.gif') 0 0;}
+.animatesmart{background:url('http://s3.amazonaws.com/myworldtogo/smilies/cool.gif') 0 0;}
+.animatesad{background:url('http://s3.amazonaws.com/myworldtogo/smilies/sadsmile.gif') 0 0;}
+.animatewink{background:url('http://s3.amazonaws.com/myworldtogo/smilies/wink.gif') 0 0;}
+.animateangry{background:url('http://s3.amazonaws.com/myworldtogo/smilies/angry.gif') 0 0;}
+.animatelouds{background:url('http://s3.amazonaws.com/myworldtogo/smilies/bigsmile.gif') 0 0;}
+.animateevil{background:url('http://s3.amazonaws.com/myworldtogo/smilies/evilgrin.gif') 0 0;}
+.animateskeptical{background:url('http://s3.amazonaws.com/myworldtogo/smilies/worried.gif') 0 0;}
+.animateconfused{background:url('http://s3.amazonaws.com/myworldtogo/smilies/wondering.gif') 0 0;}
+.animatesleeping{background:url('http://s3.amazonaws.com/myworldtogo/smilies/sleepy.gif') 0 0;}
+.animatelike{background:url('http://s3.amazonaws.com/myworldtogo/smilies/yes.gif') 0 0;}
+.animatedislike{background:url('http://s3.amazonaws.com/myworldtogo/smilies/no.gif') 0 0;}
+.animaterofl{background:url('http://s3.amazonaws.com/myworldtogo/smilies/rofl.gif') 0 0;}
