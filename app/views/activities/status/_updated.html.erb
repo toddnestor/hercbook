@@ -1,7 +1,7 @@
 <p>Updated a
 <% if activity.targetable %>
   <%= link_to "status", status_path(activity.targetable_id) %></p>
-  <p><%= replace_smilies(activity.targetable.content.html_safe) %></p>
+  <p><%= replace_smilies(activity.targetable.content.html_safe, true) %></p>
   <%= image_link_to_status(activity.targetable) %>
   <div class="meta" style="height:15px;">
       <span class="admin">
