@@ -63,7 +63,6 @@ GEM
       activemodel (>= 3.0)
       activesupport (>= 3.0)
       request_store (~> 1.0.3)
-    emoticon_fontify (1.0.2)
     emoticons_helper (0.2.3)
     erubis (2.7.0)
     execjs (2.0.2)
@@ -95,6 +94,8 @@ GEM
     minitest (5.3.3)
     multi_json (1.9.3)
     nokogiri (1.6.2.1)
+      mini_portile (= 0.6.0)
+    nokogiri (1.6.2.1-x64-mingw32)
       mini_portile (= 0.6.0)
     orm_adapter (0.5.0)
     paperclip (4.1.1)
@@ -200,7 +201,6 @@ DEPENDENCIES
   coffee-rails (~> 4.0.0)
   devise
   draper
-  emoticon_fontify (~> 1.0.2)
   emoticons_helper
   factory_girl_rails
   jbuilder (~> 2.0)
