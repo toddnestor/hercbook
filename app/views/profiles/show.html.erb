@@ -1,14 +1,28 @@
-<div class="page-header">
-  <h1><%= avatar_profile_link @user, {class: 'img-circle'} %><%= @user.full_name %></h1>
-  <% if User.online.include?(@user) %>
-    <h4 style="color: #29aa09;">Online</h4>
-  <% else %>
-    <h4 style="color: #999;">Offline</h4>
-  <% end %>
+<div class="col-md-2 well hidden-sm hidden-xs" style="position: fixed; left:10px; height: 100%;">
+    <h3>Where are the avatars from?</h3>
+    <div class="h5">
+        You can add an avatar by <%= link_to "editing your profile here and adding one", edit_user_registration_path %>, or by adding one to your e-mail address at <a href="http://www.gravatar.com">Gravatar</a> that can be used on multiple websites!</div>
+
+    <div class="h5">
+          If you don't have a Gravatar you can <a href="http://www.gravatar.com">go set one up</a>, its easy!  Or like I said, you can just add a picture to your profile <%= link_to "here", edit_user_registration_path %>.
+    </div>
 </div>
+<div class="col-md-2">
+ 
+</div>
+<div class="col-md-8">
+
+  <div class="page-header">
+    <h1><%= avatar_profile_link @user, {class: 'img-circle'} %><%= @user.full_name %></h1>
+    <% if User.online.include?(@user) %>
+      <h4 style="color: #29aa09;">Online</h4>
+    <% else %>
+      <h4 style="color: #999;">Offline</h4>
+    <% end %>
+  </div>
 
 <% if signed_in? %>
-  <div>
+  <div style="margin-bottom: 10px;">
     <div id="friend-status<%= @user.profile_name %>" style="margin-bottom: 10px; float: left; margin-right: 10px;">
       
       <% if @user != current_user %>
@@ -32,21 +46,80 @@
       <%= link_to "Albums", albums_path(@user), class: 'btn btn-success' %>
     </div>
   </div>
-<% if @statuses && (current_user.friends.include?(@user) || @user == current_user) %>
-  <% @statuses.each do |status| %>
-    <div class="well status">
-      <p><%= status.content %></p>
-      <%= image_link_to_status(status) %>
-      <hr />
-        <div class="meta">
-            <%= link_to time_ago_in_words(status.created_at).concat(" ago"), status %>
-            <span class="admin">
-            <% if status.user_id == current_user.id %>
-                | <%= link_to "Edit", edit_status_path(status) %> |
-                <%= link_to "Delete", status, method: :delete, data: { confirm: "Are you sure you want to delete this status for " + status.user.full_name + "?" } %>
+<% if @activities && (current_user.friends.include?(@user) || @user == current_user) %>
+<% @activities.each do |activity| %>
+  <div class="activity">
+    <div class="media">
+      <%= avatar_profile_link activity.user, {class: 'img-circle'}, class: 'pull-left' %>
+      <div class="media-body">
+        <h4 class="media-heading"><%= link_to activity.user.full_name, profile_path(activity.user) %>
+          <% if User.online.include?(activity.user) %>
+            <span style="color: #29aa09;">Online</span>
+          <% end %>
+        </h4>
+        <%= render partial: "activities/#{activity.targetable_type.underscore}/#{activity.action}",
+              locals: { activity: activity } %>
+        <small><%= time_ago_in_words(activity.created_at) %> ago</small>
+      </div>
+      <% if activity.targetable %>
+
+        <%= simple_form_for(@comment, html: {class: "well", role: "form", multipart: true}) do |f| %>
+          <% @comments = Comment.where("parent_type = '" + activity.targetable_type.downcase + "' AND parent_id = " + activity.targetable.id.to_s).order("created_at") %>
+          <ul class="media-list">
+            <% @comments.each do |comment| %>
+              <li class="media">
+                <%= avatar_profile_link comment.user, {class: 'img-circle pull-left', width: '30px', height: '30px'} %>
+                <div class="media-body">
+                  <h5 class="media-heading">
+                    <%= link_to comment.user.full_name, profile_path(comment.user) %>
+                    <% if User.online.include?(comment.user) %>
+                      <span style="color: #29aa09;">Online</span>
+                    <% end %>
+                  </h5>
+                  <%= comment.content.html_safe %>
+                  <p><small><%= time_ago_in_words(comment.created_at) %> ago</small></p>
+                </div>
+              </li>
+              <hr style="margin-top: 2px; margin-bottom: 2px;">
             <% end %>
-            </span>
+          </ul>
+        <%= f.error_notification %>
+
+        <div class="form-inputs">
+
+          <%= f.input :parent_type, as: :hidden, input_html: {value: activity.targetable_type.downcase} %>
+          <%= f.input :parent_id, as: :hidden, input_html: {value: activity.targetable.id} %>
+          <%= f.input :content, label: false, input_html: {class: 'form-control', placeholder: "Add a comment..."} %>
+
         </div>
+
+        <div class="form-actions">
+          <%= button_tag(type: 'submit', class: "btn btn-success") do %>
+              Add Comment
+          <% end %>
+        </div>
+      <% end %>
+    <% end %>
     </div>
-  <% end %>
+  </div>
+  <hr />
 <% end %>
+<%= will_paginate @activities %>
+<% end %>
+</div>
+<div class="col-md-2 well hidden-sm hidden-xs" style="position: fixed; float:right; right: 10px; height:100%;">
+
+    <h3>Advertisements:</h3>
+    
+<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<div style="margin: 0 auto; text-align: center;">
+<!-- my world ads -->
+      <ins class="adsbygoogle" style="display:inline-block;width:120px;height:240px" data-ad-client="ca-pub-4879610818531401" data-ad-slot="8250066063"></ins>
+
+      <script>
+        (adsbygoogle = window.adsbygoogle || []).push({});
+      </script>
+</div>
+    <div class="h5">We know ads aren't cool, but you've got to make a living somehow, right?</div>
+
+</div>

@@ -10,7 +10,7 @@ class Status < ActiveRecord::Base
 
     validates :user_id, presence: true
     
-    self.per_page = 10
+    self.per_page = 30
   
     def self.for_user(user, options={})
         options[:page] ||=1

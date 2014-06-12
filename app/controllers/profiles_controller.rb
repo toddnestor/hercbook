@@ -5,7 +5,11 @@ class ProfilesController < ApplicationController
   
   def show
     if @user
-      @statuses = @user.statuses.order("created_at DESC").all
+      params[:page] ||= 1
+      @activities = Activity.where("user_id = " + @user.id.to_s + " AND targetable_type != 'Comment'" ).order("updated_at DESC").all.page(params[:page])
+      @comment = Comment.new
+      @status = Status.new
+      @status.build_document
       render action: :show
     else
       render  file: 'public/404', status: 404, formats: [:html]
