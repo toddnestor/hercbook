@@ -21,7 +21,7 @@
     
     <div class="meta">
       
-      <%= link_to 'Back', statuses_path %>
+      <%= link_to 'Back', activities_path %>
       <% if signed_in? && @status.user_id == current_user.id then %>
           |
         <%= link_to 'Edit', edit_status_path(@status) %> |
