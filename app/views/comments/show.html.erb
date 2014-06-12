@@ -17,7 +17,7 @@
 
 <p>
   <strong>Content:</strong>
-  <%= @comment.content %>
+  <%= replace_smilies(@comment.content) %>
 </p>
 
 <%= link_to 'Edit', edit_comment_path(@comment) %> |

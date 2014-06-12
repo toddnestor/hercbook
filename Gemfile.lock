@@ -64,6 +64,7 @@ GEM
       activesupport (>= 3.0)
       request_store (~> 1.0.3)
     emoticon_fontify (1.0.2)
+    emoticons_helper (0.2.3)
     erubis (2.7.0)
     execjs (2.0.2)
     factory_girl (4.4.0)
@@ -200,6 +201,7 @@ DEPENDENCIES
   devise
   draper
   emoticon_fontify (~> 1.0.2)
+  emoticons_helper
   factory_girl_rails
   jbuilder (~> 2.0)
   jquery-rails

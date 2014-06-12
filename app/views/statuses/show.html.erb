@@ -9,7 +9,7 @@
     <% end %>
     
     <p>
-      <%= EmoticonFontify.emoticon_fontify(h(@status.content)) %>
+      <%= replace_smilies(@status.content) %>
     </p>
     
     <hr />
