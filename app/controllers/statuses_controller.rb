@@ -1,5 +1,6 @@
 require 'simple_format'
 
+
 class StatusesController < ApplicationController
 before_filter :authenticate_user!, only: [:show, :create, :new, :edit, :update, :destroy]
 before_action :set_status, only: [:show, :edit, :update, :destroy]
@@ -17,6 +18,7 @@ before_action :set_status, only: [:show, :edit, :update, :destroy]
   # GET /statuses/1
   # GET /statuses/1.json
   def show
+    @comment = Comment.new
   end
 
   # GET /statuses/new

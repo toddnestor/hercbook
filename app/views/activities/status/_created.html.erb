@@ -1,7 +1,7 @@
 <p>Created a new
 <% if activity.targetable %>
   <%= link_to "status", status_path(activity.targetable_id) %></p>
-  <p><%= activity.targetable.content.html_safe %></p>
+  <p><%= EmoticonFontify.emoticon_fontify(h(activity.targetable.content.html_safe)) %></p>
   <%= image_link_to_status(activity.targetable) %>
   <div class="meta">
       <span class="admin">

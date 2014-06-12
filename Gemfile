@@ -34,6 +34,7 @@ gem 'will_paginate', '~> 3.0'
 gem 'bootstrap-will_paginate'
 gem 'onlinerbytodd'#, :git => 'git://github.com/toddnestor/onliner-by-todd'
 gem 'simple_format'
+gem 'emoticon_fontify', '~> 1.0.2'
 
 # Use SCSS for stylesheets
 gem 'sass-rails', '~> 4.0.3'

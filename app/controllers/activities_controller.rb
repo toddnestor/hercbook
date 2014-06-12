@@ -1,3 +1,5 @@
+require 'emoticon_fontify'
+
 class ActivitiesController < ApplicationController
   respond_to :html, :json
   

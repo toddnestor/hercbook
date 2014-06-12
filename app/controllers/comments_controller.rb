@@ -1,5 +1,6 @@
 require 'simple_format'
 
+
 class CommentsController < ApplicationController
   before_filter :authenticate_user!, only: [:create, :new, :update, :destroy]
   before_action :set_comment, only: [:show, :edit, :update, :destroy]
