@@ -32,9 +32,11 @@
                         <% end %>
                       </div>
                       <% if can_edit_picture?(picture) %>
-                      <%= link_to 'Edit', edit_album_picture_path(@album, picture), class: "btn btn-primary", style: "height: 24px; width:40%; position: absolute; bottom: 5px; left: 10px;", role: "button" %>
-                      <%= link_to 'Delete', album_picture_path(@album, picture), method: :delete, data: {confirm: "Are you sure you want to delete this picture?" }, class: "btn btn-danger", style: "height: 24px; width:40%; position: absolute; bottom: 5px; right: 10px;", role: "button" %>
-                    <% end %>
+                        <%= link_to 'Edit', edit_album_picture_path(@album, picture), class: "btn btn-primary", style: "height: 24px; width:40%; position: absolute; bottom: 5px; left: 10px;", role: "button" %>
+                        <%= link_to 'Delete', album_picture_path(@album, picture), method: :delete, data: {confirm: "Are you sure you want to delete this picture?" }, class: "btn btn-danger", style: "height: 24px; width:40%; position: absolute; bottom: 5px; right: 10px;", role: "button" %>
+                      <% else %>
+                        <%= link_to 'View Album', album_picture_path(@user, @album, picture), class: "btn btn-primary", style: "height: 24px; width:80%; position: absolute; bottom: 5px; left: 20px;", role: "button" %>
+                      <% end %>
                     </figcaption>
                   </div>
                 </a>
