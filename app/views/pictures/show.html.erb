@@ -2,7 +2,7 @@
   <h1>Viewing Picture</h1>
 <% end %>
 
-<%= image_tag(@picture.asset.url(:large), alt: @picture.caption, class: 'img-polaroid') %>
+<%= link_to image_tag(@picture.asset.url(:medlg), alt: @picture.caption, class: 'img-polaroid'), @picture.asset.url(:original), :target => "_blank" %>
 
 <br />
 

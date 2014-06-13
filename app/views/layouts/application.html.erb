@@ -21,6 +21,11 @@
         border: none;
     }
   </style>
+  <script>
+    (function(doc) { 
+      doc.className = doc.className.replace(/(^|\b)no\-js(\b|$)/, 'js');
+    }(document.documentElement));
+  </script>
 </head>
 <body>
     <div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
