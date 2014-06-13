@@ -19,7 +19,7 @@ module ApplicationHelper
     
     def image_link_to_status(status)
         if status.document && status.document.attachment?
-            link_to(image_tag(status.document.attachment.url(:small)), status)
+            link_to(image_tag(status.document.attachment.url(:medium)), status)
         end
     end
 
