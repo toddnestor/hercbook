@@ -68,11 +68,23 @@ module ApplicationHelper
       signed_in? && current_user == album.user
     end
   
-    def album_thumbnail(album)
-        if album.pictures.count > 0
-          image_tag(album.pictures.first.asset.url(:small))
+    def album_thumbnail(album, multiple=false)
+        if !multiple
+            if album.pictures.count > 0
+                image_tag(album.pictures.first.asset.url(:small))
+            else
+              "No Pictures yet"
+            end
         else
-          "No Pictures"
+            @pictures = []
+            if album.pictures.count > 0
+                album.pictures.order("updated_at DESC").first(5).each do |picture|
+                    @pictures.push image_tag(picture.asset.url(:thumb))
+                end
+            else
+                @pictures.push "No pictures yet"
+            end
+            @pictures.flatten
         end
     end
 end

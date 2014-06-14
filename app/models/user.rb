@@ -105,7 +105,18 @@ class User < ActiveRecord::Base
             activity = activities.new
             activity.targetable = item
             activity.action = action
+        if action != "addedpictures" && action != "updatedpictures"
             activity.save
+        else
+            @activity = Activity.where("targetable_id = " + item.id.to_s + " AND targetable_type = 'Album'").first
+            if @activity
+                @activity.updated_at = Time.now
+                @activity.action = action
+                @activity.save
+            else
+                activity.save
+            end
+        end
             activity
         if action == "comment_created"
             @thisType = ""
