@@ -12,7 +12,7 @@ class Activity < ActiveRecord::Base
       order("updated_at DESC")
     if options[:since] && !options[:since].blank?
       since = DateTime.strptime( options[:since], '%s')
-      collection = collection.where("created_at > ? AND user_id in (?)", since, active_users) if since
+      collection = collection.where("updated_at > ? AND user_id in (?)", since, active_users) if since
     end
       collection.page(options[:page])
   end
@@ -25,7 +25,7 @@ class Activity < ActiveRecord::Base
       order("created_at DESC")
     if options[:since] && !options[:since].blank?
       since = DateTime.strptime( options[:since], '%s')
-      collection = collection.where("created_at > ? AND user_id in (?)", since, active_users) if since
+      collection = collection.where("updated_at > ? AND user_id in (?)", since, active_users) if since
     end
       collection.page(options[:page])
   end
