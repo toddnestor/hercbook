@@ -32,7 +32,7 @@ class User < ActiveRecord::Base
     has_many :been_blocked_friends, through: :been_blocked_user_friendships, source: :friend
 
     has_attached_file :avatar, styles: {
-        large: "800x800>", medium: "300x200>", small: "260x180>", thumb: "80x80#"
+        original: "1200x1200>", large: "800x800>", medium: "300x200>", small: "260x180>", thumb: "80x80#"
     }
     validates_attachment_content_type :avatar, :content_type => /\Aimage\/.*\Z/
 
