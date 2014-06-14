@@ -68,10 +68,14 @@ module ApplicationHelper
       signed_in? && current_user == album.user
     end
   
-    def album_thumbnail(album, multiple=false, amount=7)
+    def album_thumbnail(album, multiple=false, amount=7, justUrl=false)
         if !multiple
             if album.pictures.count > 0
-                image_tag(album.pictures.first.asset.url(:small))
+                if !justUrl
+                    image_tag(album.pictures.first.asset.url(:small))
+                else
+                    album.pictures.first.asset.url(:thumb)
+                end
             else
               "No Pictures yet"
             end
