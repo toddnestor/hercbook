@@ -66,6 +66,24 @@
         <%= simple_form_for(@comment, html: {class: "well", role: "form", multipart: true}) do |f| %>
           <% @comments = Comment.where("parent_type = '" + activity.targetable_type.downcase + "' AND parent_id = " + activity.targetable.id.to_s).order("created_at") %>
           <ul class="media-list">
+            <% if @comments.length > 10 %>
+              <li class="media">
+                <div class="media-body">
+                  <h5 class="media-heading">
+                    <% if activity.targetable_type == 'Status' %>
+                      <%= link_to "See all " + @comments.length.to_s + " comments", status_path(activity.targetable_id) %>
+                      <% elsif activity.targetable_type == 'Album' %>
+                        <%= link_to "See all " + @comments.length.to_s + " comments", album_pictures_path(activity.targetable.user, activity.targetable) %>
+                      <% elsif activity.targetable_type == 'Picture' %>
+                        <%= link_to "See all " + @comments.length.to_s + " comments", album_picture_path(activity.targetable.user, activity.targetable.album, activity.targetable) %>
+                      <% elsif activity.targetable_type == 'UserFriendship' %>
+
+                    <% end %>
+                  </h5>
+                </div>
+              </li>
+              <hr style="margin-top: 2px; margin-bottom: 2px;">
+            <% end %>
             <% @comments.each do |comment| %>
               <li class="media">
                 <%= avatar_profile_link comment.user, {class: 'img-circle pull-left', width: '30px', height: '30px'} %>
