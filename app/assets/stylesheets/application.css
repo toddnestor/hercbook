@@ -49,3 +49,7 @@ div.navbar-inverse ul.dropdown-menu li a dl, div.navbar-inverse ul.dropdown-menu
  ul.breadcrumb {
  	margin-bottom: 5px;
  }
+
+ .hiddencomment {
+ 	display: none;
+ }
