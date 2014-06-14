@@ -45,3 +45,7 @@ div.navbar-inverse ul.dropdown-menu li a dl, div.navbar-inverse ul.dropdown-menu
  	visibility: hidden;
 	float: left;
  }
+
+ ul.breadcrumb {
+ 	margin-bottom: 5px;
+ }

@@ -1,51 +1,65 @@
-<%= page_header do %>
-  <h1>Viewing Picture</h1>
-<% end %>
+<div class="col-md-1">
 
-<%= link_to image_tag(@picture.asset.url(:medlg), alt: @picture.caption, class: 'img-polaroid'), @picture.asset.url(:original), :target => "_blank" %>
+</div>
+<div class="col-md-10">
+  <div style="margin: 0 auto; position: relative;">
+    <h1 style="margin-top: 0; text-align: center;">Viewing Picture</h1>
+    <div style="display: block; margin: 0 auto; width: auto; max-width: 600px; text-align: center;">
+      <%= link_to image_tag(@picture.asset.url(:medlg), alt: @picture.caption, class: 'img-polaroid'), @picture.asset.url(:original), :target => "_blank" %>
+      <br />
 
-<br />
+      <h3><%= @picture.caption %></h3>
 
-<h3><%= @picture.caption %></h3>
+      <p><%= @picture.description %></p>
 
-<p><%= @picture.description %></p>
-
-<%= link_to 'Edit', edit_album_picture_path(@album, @picture) %> |
-<%= link_to 'Album', album_pictures_path(@album) %>
-
-<%= simple_form_for(@comment, html: {class: "well", role: "form", multipart: true}) do |f| %>
-<% @comments = Comment.where("parent_type = 'picture' AND parent_id = " + @picture.id.to_s).order("created_at") %>
-<ul class="media-list">
-<% @comments.each do |comment| %>
-  <li class="media">
-    <%= avatar_profile_link comment.user, {class: 'img-circle pull-left', width: '30px', height: '30px'} %>
-    <div class="media-body">
-      <h5 class="media-heading">
-        <%= link_to comment.user.full_name, profile_path(comment.user) %>
-        <% if User.online.include?(comment.user) %>
-          <span style="color: #29aa09;">Online</span>
-        <% end %>
-      </h5>
-      <%= replace_smilies(comment.content.html_safe, true) %>
-      <p><small><%= time_ago_in_words(comment.created_at) %> ago</small></p>
+      <%= link_to 'Edit', edit_album_picture_path(@album, @picture) %> |
+      <%= link_to 'Album', album_pictures_path(@album) %>
     </div>
-  </li>
-  <hr style="margin-top: 2px; margin-bottom: 2px;">
-<% end %>
-</ul>
-<%= f.error_notification %>
+    <div style="height: 104px; padding: 2px; border: 1px solid #e3e3e3; overflow-x: scroll; overflow-y: hidden; margin-bottom: 10px; margin-top: 10px;">
+      <div style="margin: 0 auto; text-align: center;">
+        <% album_thumbnail(@album, true, 0).each do |item| %>
+          <%= link_to item[:image], album_picture_path(@user, @album, item[:picture]) %>
+        <% end %>
+      </div>
+    </div>
+    <%= simple_form_for(@comment, html: {class: "well", role: "form", multipart: true}) do |f| %>
+    <% @comments = Comment.where("parent_type = 'picture' AND parent_id = " + @picture.id.to_s).order("created_at") %>
+    <ul class="media-list">
+    <% @comments.each do |comment| %>
+      <li class="media">
+        <%= avatar_profile_link comment.user, {class: 'img-circle pull-left', width: '30px', height: '30px'} %>
+        <div class="media-body">
+          <h5 class="media-heading">
+            <%= link_to comment.user.full_name, profile_path(comment.user) %>
+            <% if User.online.include?(comment.user) %>
+              <span style="color: #29aa09;">Online</span>
+            <% end %>
+          </h5>
+          <%= replace_smilies(comment.content.html_safe, true) %>
+          <p><small><%= time_ago_in_words(comment.created_at) %> ago</small></p>
+        </div>
+      </li>
+      <hr style="margin-top: 2px; margin-bottom: 2px;">
+    <% end %>
+    </ul>
+    <%= f.error_notification %>
 
-<div class="form-inputs">
+    <div class="form-inputs">
 
-<%= f.input :parent_type, as: :hidden, input_html: {value: 'picture'} %>
-<%= f.input :parent_id, as: :hidden, input_html: {value: @picture.id} %>
-<%= f.input :content, label: false, input_html: {class: 'form-control', placeholder: "Add a comment..."} %>
+    <%= f.input :parent_type, as: :hidden, input_html: {value: 'picture'} %>
+    <%= f.input :parent_id, as: :hidden, input_html: {value: @picture.id} %>
+    <%= f.input :content, label: false, input_html: {class: 'form-control', placeholder: "Add a comment..."} %>
+
+    </div>
+
+    <div class="form-actions">
+    <%= button_tag(type: 'submit', class: "btn btn-success") do %>
+      Add Comment
+    <% end %>
+    </div>
+    <% end %>
+  </div>
+</div>
+<div class="col-md-1">
 
 </div>
-
-<div class="form-actions">
-<%= button_tag(type: 'submit', class: "btn btn-success") do %>
-  Add Comment
-<% end %>
-</div>
-<% end %>

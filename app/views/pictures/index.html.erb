@@ -3,12 +3,10 @@
 </div>
 <div class="col-md-10">
 <div style="width: 100%; margin: 0 auto 0 auto;">
-<%= page_header do %>
   <% if signed_in? && current_user == @user %>
     <%= link_to 'Add Picture', new_album_picture_path(current_user, @album), class: 'btn pull-right btn-primary' %>
   <% end %>
-  <h1><%= @album.title %></h1>
-<% end %>
+  <h1 style="margin-top: 0;"><%= @album.title %></h1>
     <div class="mosaiqy" style="width: 100%; margin: 0 auto 0 auto; padding-bottom: 10px;">
         <ul style="padding: 0 5%;">
           <% @pictures.each do |picture| %>
