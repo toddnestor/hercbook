@@ -84,7 +84,7 @@
               </li>
               <hr style="margin-top: 2px; margin-bottom: 2px;">
             <% end %>
-            <% @comments.each do |comment| %>
+            <% @comments.reverse.first(10).reverse.each do |comment| %>
               <li class="media">
                 <%= avatar_profile_link comment.user, {class: 'img-circle pull-left', width: '30px', height: '30px'} %>
                 <div class="media-body">
