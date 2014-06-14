@@ -15,6 +15,12 @@ $(document).ready(function() {
 
 	$(document).on('click', '#showComments', function(event) {
 		event.preventDefault();
-		$('#' + $(this).data('commentId')).toggle();
+		$('#' + $(this).data('commentId')).slideToggle();
+	});
+
+	$(document).on('click', '#showMoreComments', function(event) {
+		event.preventDefault();
+		$('#' + $(this).data('commentId')).slideToggle();
+		$(this).slideToggle();
 	});
 });

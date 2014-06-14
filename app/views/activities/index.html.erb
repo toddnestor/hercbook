@@ -78,30 +78,90 @@
           <% @comments = Comment.where("parent_type = '" + activity.targetable_type.downcase + "' AND parent_id = " + activity.targetable.id.to_s).order("created_at") %>
           <ul class="media-list">
             <% if @comments.length > 0 %>
-            <% if @comments.length == 1 %>
-            <% @textForLink = "See 1 comment" %>
-            <% else %>
-            <% @textForLink = "See all " + @comments.length.to_s + " comments" %>
-            <% end %>
-              <li class="media">
-                <div class="media-body">
-                  <h5 class="media-heading">
-                    <% if activity.targetable_type == 'Status' %>
-                      <%= link_to @textForLink, status_path(activity.targetable_id), id: "showComments", data: {comment_id: ("this" + activity.targetable_type + activity.targetable_id.to_s)} %>
-                      <% elsif activity.targetable_type == 'Album' %>
-                        <%= link_to @textForLink, album_pictures_path(activity.targetable.user, activity.targetable), id: "showComments", data: {comment_id: ("this" + activity.targetable_type + activity.targetable_id.to_s)} %>
-                      <% elsif activity.targetable_type == 'Picture' %>
-                        <%= link_to @textForLink, album_picture_path(activity.targetable.user, activity.targetable.album, activity.targetable), id: "showComments", data: {comment_id: ("this" + activity.targetable_type + activity.targetable_id.to_s)} %>
-                      <% elsif activity.targetable_type == 'UserFriendship' %>
+              <% if @comments.length == 1 %>
+                <% @textForLink = "Show/Hide comment (1 total)" %>
+              <% else %>
+                <% @textForLink = "Show/hide Comments (" + @comments.length.to_s + " total)" %>
+              <% end %>
+                <li class="media">
+                  <div class="media-body">
+                    <h5 class="media-heading">
+                      <% if activity.targetable_type == 'Status' %>
+                        <%= link_to @textForLink, status_path(activity.targetable_id), id: "showComments", data: {comment_id: ("this" + activity.targetable_type + activity.targetable_id.to_s)} %>
+                        <% elsif activity.targetable_type == 'Album' %>
+                          <%= link_to @textForLink, album_pictures_path(activity.targetable.user, activity.targetable), id: "showComments", data: {comment_id: ("this" + activity.targetable_type + activity.targetable_id.to_s)} %>
+                        <% elsif activity.targetable_type == 'Picture' %>
+                          <%= link_to @textForLink, album_picture_path(activity.targetable.user, activity.targetable.album, activity.targetable), id: "showComments", data: {comment_id: ("this" + activity.targetable_type + activity.targetable_id.to_s)} %>
+                        <% elsif activity.targetable_type == 'UserFriendship' %>
 
-                    <% end %>
-                  </h5>
-                </div>
-              </li>
-              <hr style="margin-top: 2px; margin-bottom: 2px;">
-            <% end %>
+                      <% end %>
+                    </h5>
+                  </div>
+                </li>
+                <hr style="margin-top: 2px; margin-bottom: 2px;">
+              <% end %>
             <div class="hiddencomment" id="this<%= activity.targetable_type + activity.targetable_id.to_s %>">
-              <% @comments.reverse.first(10).reverse.each do |comment| %>
+              
+              
+                <% if @comments.length > 7 %>
+
+                  <% if @comments.length == 8 %>
+                    <% @textForLink2 = "Show 1 more comment" %>
+                  <% else %>
+                    <% @textForLink2 = "Show " + (@comments.length - 7).to_s + " more comments" %>
+                  <% end %>
+                    <li class="media">
+                      <div class="media-body">
+                        <h5 class="media-heading">
+                          <% if activity.targetable_type == 'Status' %>
+                            <%= link_to @textForLink2, status_path(activity.targetable_id), id: "showMoreComments", data: {comment_id: ("that" + activity.targetable_type + activity.targetable_id.to_s)} %>
+                            <% elsif activity.targetable_type == 'Album' %>
+                              <%= link_to @textForLink2, album_pictures_path(activity.targetable.user, activity.targetable), id: "showMoreComments", data: {comment_id: ("that" + activity.targetable_type + activity.targetable_id.to_s)} %>
+                            <% elsif activity.targetable_type == 'Picture' %>
+                              <%= link_to @textForLink2, album_picture_path(activity.targetable.user, activity.targetable.album, activity.targetable), id: "showMoreComments", data: {comment_id: ("that" + activity.targetable_type + activity.targetable_id.to_s)} %>
+                            <% elsif activity.targetable_type == 'UserFriendship' %>
+
+                          <% end %>
+                        </h5>
+                      </div>
+                    </li>
+                    <hr style="margin-top: 2px; margin-bottom: 2px;">
+
+                    <div class="hiddencomment" id="that<%= activity.targetable_type + activity.targetable_id.to_s %>">
+                  <% @comments.each_with_index do |comment, index| %>
+                    <% if index < (@comments.length - 7) %>
+                      <li class="media">
+                        <%= avatar_profile_link comment.user, {class: 'img-circle pull-left', width: '30px', height: '30px'} %>
+                        <div class="media-body">
+                          <h5 class="media-heading">
+                            <%= link_to comment.user.full_name, profile_path(comment.user) %>
+                            <% if User.online.include?(comment.user) %>
+                              <span style="color: #29aa09;">Online</span>
+                            <% end %>
+                          </h5>
+                          <%= replace_smilies(comment.content.html_safe, true) %>
+                          <p><small><%= time_ago_in_words(comment.created_at) %> ago</small></p>
+                          <div class="meta" style="height:15px;">
+                              <span class="admin">
+                              <% if comment.user_id == current_user.id %>
+                                  <%= link_to "Edit", edit_comment_path(comment) %> |
+                                  <%= link_to "Delete", comment, method: :delete, data: { confirm: "Are you sure you want to delete this comment?" } %>
+                              <% end %>
+                              </span>
+                          </div>
+                        </div>
+                      </li>
+                      <hr style="margin-top: 2px; margin-bottom: 2px;">
+                    <% end %>
+
+                  <% end %>
+                  </div>
+                <% end %>
+
+              
+
+
+              <% @comments.reverse.first(7).reverse.each do |comment| %>
                 <li class="media">
                   <%= avatar_profile_link comment.user, {class: 'img-circle pull-left', width: '30px', height: '30px'} %>
                   <div class="media-body">
