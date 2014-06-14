@@ -170,6 +170,11 @@ Handlebars.registerHelper('activityLink',function() {
             html = "<li><a href='" + path + "'><dl><dt><img style='margin-right: 5px;' class='img-circle pull-left' height='30px' width='30px' src='" + activity.user_avatar + "'> " + activity.user_name + " " + activity.action + " a " + linkText +":</dt><dd>" + activity.targetable.content + "</dd></dl></a></li>";
             break;
         case "album":
+            if (activity.action == 'addedpictures') {
+                activity.action = 'added pictures to';
+            } else if (activity.action == 'updatedpictures') {
+                activity.action = 'updated pictures in';
+            }
             path = Routes.album_path(activity.profile_name, activity.targetable_id);
             html = "<li><a href='" + path + "'><dl><dt><img style='margin-right: 5px;' class='img-circle pull-left' height='30px' width='30px' src='" + activity.user_avatar + "'> " +  activity.user_name + " " + activity.action + " an " + linkText +":</dt><dd>" + activity.targetable.title + "</dd></dl></a></li>";
             break;
