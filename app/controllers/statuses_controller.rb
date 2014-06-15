@@ -19,6 +19,7 @@ before_action :set_status, only: [:show, :edit, :update, :destroy]
   # GET /statuses/1.json
   def show
     @comment = Comment.new
+    @comment.build_document
   end
 
   # GET /statuses/new

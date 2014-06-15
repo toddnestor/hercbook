@@ -1,16 +1,6 @@
 <p id="notice"><%= notice %></p>
 
 <p>
-  <strong>Type:</strong>
-  <%= @comment.parent_type %>
-</p>
-
-<p>
-  <strong>Parent ID:</strong>
-  <%= @comment.parent_id %>
-</p>
-
-<p>
   <strong>User:</strong>
   <%= @comment.user.full_name %>
 </p>
@@ -19,6 +9,7 @@
   <strong>Content:</strong>
   <%= replace_smilies(@comment.content) %>
 </p>
+<p><%= image_link_to_status(@comment) %><p>
 
 <%= link_to 'Edit', edit_comment_path(@comment) %> |
 <%= link_to 'Back', activities_path %>
