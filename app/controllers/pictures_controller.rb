@@ -13,6 +13,7 @@ class PicturesController < ApplicationController
   def index
     @pictures = @album.pictures.all
     @comment = Comment.new
+    @comment.build_document
   end
 
   # GET /pictures/1
@@ -21,6 +22,7 @@ class PicturesController < ApplicationController
     @picture = @album.pictures.find(params[:id])
     add_breadcrumb @picture, album_picture_path(@album, @picture)
     @comment = Comment.new
+    @comment.build_document
   end
 
   # GET /pictures/new

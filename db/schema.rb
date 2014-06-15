@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140610102942) do
+ActiveRecord::Schema.define(version: 20140615051308) do
 
   create_table "activities", force: true do |t|
     t.integer  "user_id"
@@ -41,6 +41,7 @@ ActiveRecord::Schema.define(version: 20140610102942) do
     t.datetime "updated_at"
     t.integer  "parent_id"
     t.string   "parent_type"
+    t.integer  "document_id"
   end
 
   add_index "comments", ["parent_id"], name: "index_comments_on_parent_id"

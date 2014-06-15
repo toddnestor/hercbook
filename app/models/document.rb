@@ -6,6 +6,7 @@ class Document < ActiveRecord::Base
   
   has_one :status
   has_one :user
+  has_one :comment
   
   attr_accessor :remove_attachment
   

@@ -19,10 +19,14 @@ class CommentsController < ApplicationController
   # GET /comments/new
   def new
     @comment = Comment.new
+    @comment.build_document
   end
 
   # GET /comments/1/edit
   def edit
+    if !@comment.document
+      @comment.build_document
+    end
   end
 
   # POST /comments
@@ -50,6 +54,17 @@ class CommentsController < ApplicationController
   def update
     c = SimpleFormat::Converter.new
     @comment[:content] = c.rich_with(@comment[:content])
+
+
+    if comment_params.has_key?(:document_attributes) && params[:comment][:document_attributes][:remove_attachment] == '1'
+      @comment.document.attachment = nil
+    else
+      if @comment.document && @comment.document.attachment? && comment_params.has_key?(:document_attributes)
+        comment_params.delete(:document_attributes)
+      end
+    end
+
+
     respond_to do |format|
       if @comment.update(comment_params)
         format.html { redirect_to @comment, notice: 'Comment was successfully updated.' }
@@ -79,6 +94,6 @@ class CommentsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def comment_params
-      params.require(:comment).permit(:parent_type, :content, :parent_id, :user_id)
+      params.require(:comment).permit(:parent_type, :content, :parent_id, :user_id, document_attributes: document_permitted_attributes)
     end
 end

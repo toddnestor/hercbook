@@ -63,7 +63,7 @@
       </div>
       <% if activity.targetable %>
 
-        <%= simple_form_for(@comment, html: {class: "well", role: "form", multipart: true}) do |f| %>
+        <%= simple_form_for(@comment, html: {class: "well", role: "form", multipart: true, style: "padding-bottom: 43px;"}) do |f| %>
           <% @comments = Comment.where("parent_type = '" + activity.targetable_type.downcase + "' AND parent_id = " + activity.targetable.id.to_s).order("created_at") %>
           <ul class="media-list">
             <% if @comments.length > 0 %>
@@ -129,6 +129,7 @@
                             <% end %>
                           </h5>
                           <%= replace_smilies(comment.content.html_safe, true) %>
+                          <p><%= image_link_to_status(comment) %><p>
                           <p><small><%= time_ago_in_words(comment.created_at) %> ago</small></p>
                           <div class="meta" style="height:15px;">
                               <span class="admin">
@@ -161,6 +162,7 @@
                       <% end %>
                     </h5>
                     <%= replace_smilies(comment.content.html_safe, true) %>
+                    <p><%= image_link_to_status(comment) %><p>
                     <p><small><%= time_ago_in_words(comment.created_at) %> ago</small></p>
                     <div class="meta" style="height:15px;">
                         <span class="admin">
@@ -185,9 +187,21 @@
           <%= f.input :content, label: false, input_html: {class: 'form-control', placeholder: "Add a comment..."} %>
 
         </div>
-
+        <%= f.fields_for :document do |document_fields| %>
+          <% if document_fields.object.attachment? %>
+            <%= document_fields.input :remove_attachment, as: :boolean, label: "Remove attachment?", label_html: {style: "float:left;"}, input_html: {style: "margin-left: 5px"} %>
+            <div class="control-group">
+              <label class="control-label">Current picture</label>
+              <div class="controls">
+                <%= status_document_link @comment %>
+              </div>
+            </div>
+          <% else %>
+            <div class="pull-left"><%= document_fields.input :attachment, as: :file, label: false, input_html: {accept: "image/*", value: "Add Picture"} %></div>
+          <% end %>
+        <% end %>
         <div class="form-actions">
-          <%= button_tag(type: 'submit', class: "btn btn-success") do %>
+          <%= button_tag(type: 'submit', class: "btn btn-success pull-right") do %>
               Add Comment
           <% end %>
         </div>

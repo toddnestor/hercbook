@@ -13,6 +13,7 @@ class ActivitiesController < ApplicationController
         end
       end
       @comment = Comment.new
+      @comment.build_document
       @status = Status.new
       @status.build_document
       
