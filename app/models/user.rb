@@ -6,6 +6,8 @@ class User < ActiveRecord::Base
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable, :onlinerbytodd
 
+    acts_as_messageable
+
     has_many :statuses
     has_many :comments
     has_many :user_friendships
@@ -150,6 +152,14 @@ class User < ActiveRecord::Base
                 activity.save
             end
         end
+    end
+
+    def name
+        profile_name
+    end
+
+    def mailboxer_email(object)
+        email
     end
 
     private
