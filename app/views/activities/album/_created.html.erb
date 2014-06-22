@@ -4,10 +4,10 @@
   <p><%= link_to activity.targetable.title, album_pictures_path(activity.targetable.user, activity.targetable) %></p>
   <p>
 	<% album_thumbnail(activity.targetable, true).each do |item| %>
-		<% if item[:image] %>
+		<% if item[0] != "No pictures yet" %>
 			<%= link_to item[:image], album_picture_path(activity.targetable.user, activity.targetable, item[:picture]) %>
 		<% else %>
-			<%= link_to "No Pictures", album_pictures_path(activity.targetable.user, activity.targetable) %>
+			<%= link_to "No pictures yet", album_pictures_path(activity.targetable.user, activity.targetable) %>
 		<% end %>
 	<% end %>
   </p>
