@@ -7,8 +7,12 @@
     <a href="<%= album_pictures_path(album) %>"><h4 class="media-heading" style="margin-bottom: 0;"><%= album.title %></h4></a>
     <div class="media" style="margin-top: 3px;">
       <div class="media-body">
-        <% album_thumbnail(album, true, 7).each do |item| %>
-          <%= link_to item[:image], album_picture_path(@user, album, item[:picture]) %>
+        <% album_thumbnail(album, true).each do |item| %>
+          <% if item != "No pictures yet" %>
+            <%= link_to item[:image], album_picture_path(@user, album, item[:picture]) %>
+          <% else %>
+            <%= link_to "No pictures yet", album_pictures_path(@user, album) %>
+          <% end %>
         <% end %>
       </div>
     </div>
