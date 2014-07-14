@@ -8,10 +8,6 @@ $(document).ready(function() {
 	    }
 	    }); 
 
-	$('textarea#activityFeedStatus').blur(function (e) {         
-	    var textLines = $(this).val().trim().split(/\r*\n/).length;  
-	    $(this).val($(this).val().trim()).height(textLines*17);
-	    });
 
 	$(document).on('click', '#showComments', function(event) {
 		event.preventDefault();
