@@ -41,6 +41,14 @@ Rails.application.routes.draw do
   get 'feed', to: 'statuses#index', as: :feed
   get 'feed/create', to: 'statuses#new', as: :feed_create
 
+  resources :conversations, only: [:index, :show, :new, :create] do
+    member do
+      post :reply
+      post :trash
+      post :untrash
+    end
+  end
+
   root to: 'activities#index'
 
   
@@ -52,5 +60,11 @@ Rails.application.routes.draw do
 
   get '/:id', to: 'profiles#show', as: 'profile'
 
-
+  resources :conversations, only: [:index, :show, :new, :create] do
+    member do
+      post :reply
+      post :trash
+      post :untrash
+    end
+  end
 end
