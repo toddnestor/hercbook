@@ -1,4 +1,3 @@
-#source 'https://ruby.taobao.org'
 source 'https://rubygems.org'
 
   ruby '2.1.1'
@@ -32,10 +31,11 @@ gem 'paperclip'
 gem 'twitter-bootstrap-rails'
 gem 'will_paginate', '~> 3.0'
 gem 'bootstrap-will_paginate'
-gem 'onlinerbytodd'#, :git => 'git://github.com/toddnestor/onliner-by-todd'
+gem 'onlinerbytodd', '~> 1.0.1'
 gem 'simple_format'
 gem 'emoticons_helper'
 gem 'mailboxer'
+gem 'haml-rails'
 
 # Use SCSS for stylesheets
 gem 'sass-rails', '~> 4.0.3'

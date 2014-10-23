@@ -29,3 +29,6 @@
 
 # Ignore bin directory
 /bin
+
+# Ignore .scssc files
+*.scssc
